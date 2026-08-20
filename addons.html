@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="SMC DL - Minecraft Addons"
+  >
+
+  <meta
+    name="theme-color"
+    content="#020611"
+  >
+
+  <title>Addon — SMC DL</title>
+
+  <link rel="stylesheet" href="CSS/addons.css">
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+
+  <div class="background-glow"></div>
+  <div class="stars"></div>
+
+
+  <!-- TOP NAVBAR -->
+
+  <header class="top-navbar">
+
+    <a href="index.html" class="brand">
+
+      <span class="brand-main">
+        SMC DL
+      </span>
+
+      <span class="brand-sub">
+        MINECRAFT ADDONS
+      </span>
+
+    </a>
+
+
+    <a
+      href="index.html"
+      class="back-button"
+      aria-label="Kembali"
+    >
+      ←
+    </a>
+
+  </header>
+
+
+  <!-- MAIN -->
+
+  <main>
+
+    <!-- PAGE HEADER -->
+
+    <section class="page-header">
+
+      <span class="page-label">
+        EXPLORE
+      </span>
+
+      <h1>
+        Minecraft Addons
+      </h1>
+
+      <p>
+        Temukan addon Minecraft favoritmu
+        di SMC DL.
+      </p>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section class="search-section">
+
+      <form
+        class="search-box"
+        id="addonSearchForm"
+      >
+
+        <span class="search-icon">
+          <img
+            src="assets/icons/search.webp"
+            alt=""
+          >
+        </span>
+
+        <input
+          type="search"
+          id="addonSearch"
+          placeholder="Cari addon..."
+          autocomplete="off"
+        >
+
+        <button type="submit">
+          Cari
+        </button>
+
+      </form>
+
+    </section>
+
+
+    <!-- FILTER -->
+
+    <section class="filter-section">
+
+      <div class="filter-scroll">
+
+        <button
+          class="filter-button active"
+          type="button"
+          data-category="all"
+        >
+          Semua
+        </button>
+
+        <button
+          class="filter-button"
+          type="button"
+          data-category="addon"
+        >
+          Addon
+        </button>
+
+        <button
+          class="filter-button"
+          type="button"
+          data-category="mod"
+        >
+          Mod
+        </button>
+
+        <button
+          class="filter-button"
+          type="button"
+          data-category="shader"
+        >
+          Shader
+        </button>
+
+        <button
+          class="filter-button"
+          type="button"
+          data-category="texture"
+        >
+          Texture
+        </button>
+
+        <button
+          class="filter-button"
+          type="button"
+          data-category="map"
+        >
+          Map
+        </button>
+
+        <button
+          class="filter-button"
+          type="button"
+          data-category="skin"
+        >
+          Skin
+        </button>
+
+      </div>
+
+
+      <div class="sort-box">
+
+        <label for="sortAddon">
+          Urutkan
+        </label>
+
+        <select id="sortAddon">
+
+          <option value="latest">
+            Terbaru
+          </option>
+
+          <option value="rating">
+            Rating tertinggi
+          </option>
+
+          <option value="downloads">
+            Download terbanyak
+          </option>
+
+        </select>
+
+      </div>
+
+    </section>
+
+
+    <!-- ADDON LIST -->
+
+    <section class="addon-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="section-label">
+            COLLECTION
+          </span>
+
+          <h2>
+            Semua Addon
+          </h2>
+
+        </div>
+
+        <span
+          class="addon-count"
+          id="addonCount"
+        >
+          0 addon
+        </span>
+
+      </div>
+
+
+      <!--
+        DATABASE AKAN MENGISI
+        CARD ADDON DI SINI
+      -->
+
+      <div
+        class="addon-grid"
+        id="addonGrid"
+      ></div>
+
+
+      <!-- EMPTY STATE -->
+
+      <div
+        class="empty-state"
+        id="emptyState"
+      >
+
+        <div class="empty-icon">
+          ◇
+        </div>
+
+        <h3>
+          Belum ada addon
+        </h3>
+
+        <p>
+          Addon akan muncul di sini
+          setelah ditambahkan ke database.
+        </p>
+
+      </div>
+
+
+      <!-- NO SEARCH RESULT -->
+
+      <div
+        class="empty-state"
+        id="noResult"
+      >
+
+        <div class="empty-icon">
+          ⌕
+        </div>
+
+        <h3>
+          Addon tidak ditemukan
+        </h3>
+
+        <p>
+          Coba gunakan kata kunci
+          pencarian yang berbeda.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- AD SPACE -->
+
+    <section
+      class="ad-container"
+      aria-label="Advertisement"
+    >
+
+      <div class="ad-placeholder">
+
+        <span>
+          ADVERTISEMENT
+        </span>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    <div class="footer-logo">
+      SMC DL
+    </div>
+
+    <p>
+      Minecraft Mods & Addons
+    </p>
+
+    <div class="footer-links">
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="addons.html">
+        Addon
+      </a>
+
+      <a href="favorites.html">
+        Favorit
+      </a>
+
+    </div>
+
+    <div class="footer-copy">
+      © 2026 SMC DL
+    </div>
+
+  </footer>
+
+
+  <!-- BOTTOM NAVBAR -->
+
+  <nav class="bottom-navbar">
+
+    <a
+      href="index.html"
+      class="bottom-link"
+    >
+
+      <img
+        src="assets/icons/home.webp"
+        alt="Home"
+        class="bottom-icon"
+      >
+
+      <span>
+        Home
+      </span>
+
+    </a>
+
+
+    <a
+      href="addons.html"
+      class="bottom-link active"
+    >
+
+      <img
+        src="assets/icons/search.webp"
+        alt="Addon"
+        class="bottom-icon"
+      >
+
+      <span>
+        Addon
+      </span>
+
+    </a>
+
+
+    <a
+      href="favorites.html"
+      class="bottom-link"
+    >
+
+      <img
+        src="assets/icons/favorite.webp"
+        alt="Favorit"
+        class="bottom-icon"
+      >
+
+      <span>
+        Favorit
+      </span>
+
+    </a>
+
+
+    <a
+      href="menu.html"
+      class="bottom-link"
+    >
+
+      <img
+        src="assets/icons/menu.webp"
+        alt="Menu"
+        class="bottom-icon"
+      >
+
+      <span>
+        Menu
+      </span>
+
+    </a>
+
+  </nav>
+
+</body>
+</html>
