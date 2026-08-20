@@ -1,51 +1,121 @@
+const SUPABASE_URL =
+  "https://rtwljeoxxhlfortcputj.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_stZa8kHgp-sokGGLRQIfrA_dM9ec8x-";
+
+
 document.addEventListener("DOMContentLoaded", () => {
-  const searchInput = document.getElementById("addonSearch");
-  const addonGrid = document.getElementById("addonGrid");
+
+  const searchInput =
+    document.getElementById("addonSearch");
+
+  const addonGrid =
+    document.getElementById("addonGrid");
+
   const categoryButtons =
-    document.querySelectorAll("[data-category]");
+    document.querySelectorAll(
+      "[data-category]"
+    );
+
 
   let addons = [];
+
   let currentCategory = "all";
 
 
   // =========================
-  // LOAD ADDONS
+  // LOAD FROM SUPABASE
   // =========================
 
   async function loadAddons() {
+
+    if (!addonGrid) return;
+
     try {
 
-      /*
-       * Untuk sekarang data addon kosong.
-       * Nanti bagian ini akan diganti
-       * dengan database/API SMC DL.
-       */
+      addonGrid.innerHTML = `
+        <div class="loading-addon">
+          Memuat addon...
+        </div>
+      `;
 
-      addons = [];
+
+      const response =
+        await fetch(
+          `${SUPABASE_URL}/rest/v1/addons?select=*&order=created_at.desc`,
+          {
+            method: "GET",
+
+            headers: {
+              "apikey": SUPABASE_KEY,
+
+              "Authorization":
+                `Bearer ${SUPABASE_KEY}`,
+
+              "Content-Type":
+                "application/json"
+            }
+          }
+        );
+
+
+      if (!response.ok) {
+
+        const errorText =
+          await response.text();
+
+        throw new Error(
+          `Supabase ${response.status}: ${errorText}`
+        );
+      }
+
+
+      addons =
+        await response.json();
+
 
       renderAddons();
+
 
     } catch (error) {
 
       console.error(
-        "Gagal memuat addon:",
+        "Gagal mengambil addon:",
         error
       );
 
-      showEmpty(
-        "Gagal memuat data addon."
-      );
+
+      addonGrid.innerHTML = `
+        <div class="empty-addon">
+
+          <div class="empty-icon">
+            ⚠️
+          </div>
+
+          <h3>
+            Gagal memuat addon
+          </h3>
+
+          <p>
+            Periksa koneksi Supabase
+            atau konfigurasi API.
+          </p>
+
+        </div>
+      `;
     }
   }
 
 
   // =========================
-  // RENDER ADDONS
+  // RENDER
   // =========================
 
   function renderAddons() {
 
     if (!addonGrid) return;
+
 
     const search =
       searchInput
@@ -54,23 +124,41 @@ document.addEventListener("DOMContentLoaded", () => {
             .toLowerCase()
         : "";
 
-    const filtered = addons.filter((addon) => {
 
-      const matchesSearch =
-        !search ||
-        addon.name
-          .toLowerCase()
-          .includes(search);
+    const filtered =
+      addons.filter((addon) => {
 
-      const matchesCategory =
-        currentCategory === "all" ||
-        addon.category === currentCategory;
+        const name =
+          String(addon.name || "")
+            .toLowerCase();
 
-      return (
-        matchesSearch &&
-        matchesCategory
-      );
-    });
+        const description =
+          String(addon.description || "")
+            .toLowerCase();
+
+        const category =
+          String(addon.category || "")
+            .toLowerCase();
+
+
+        const matchesSearch =
+          !search ||
+          name.includes(search) ||
+          description.includes(search) ||
+          category.includes(search);
+
+
+        const matchesCategory =
+          currentCategory === "all" ||
+          category ===
+            currentCategory.toLowerCase();
+
+
+        return (
+          matchesSearch &&
+          matchesCategory
+        );
+      });
 
 
     if (filtered.length === 0) {
@@ -87,6 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addonGrid.innerHTML = "";
 
+
     filtered.forEach((addon) => {
 
       addonGrid.appendChild(
@@ -98,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // =========================
-  // ADDON CARD
+  // CREATE CARD
   // =========================
 
   function createAddonCard(addon) {
@@ -106,39 +195,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const card =
       document.createElement("article");
 
-    card.className = "addon-card";
+    card.className =
+      "addon-card";
 
 
     const image =
       document.createElement("img");
 
-    image.className = "addon-image";
+    image.className =
+      "addon-image";
 
-    image.src = addon.image || "";
-    image.alt = addon.name;
+    image.src =
+      addon.image_url || "";
 
-    image.loading = "lazy";
+    image.alt =
+      addon.name || "Addon";
+
+    image.loading =
+      "lazy";
 
 
     const content =
       document.createElement("div");
 
-    content.className = "addon-content";
+    content.className =
+      "addon-content";
 
 
     const title =
       document.createElement("h3");
 
-    title.className = "addon-title";
+    title.className =
+      "addon-title";
 
     title.textContent =
-      addon.name;
+      addon.name || "Untitled";
 
 
     const category =
       document.createElement("span");
 
-    category.className = "addon-category";
+    category.className =
+      "addon-category";
 
     category.textContent =
       addon.category || "Addon";
@@ -157,17 +255,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const favorite =
       document.createElement("button");
 
+    favorite.type =
+      "button";
+
     favorite.className =
       "favorite-button";
 
-    favorite.type = "button";
+    favorite.textContent =
+      isFavorite(addon.id)
+        ? "♥"
+        : "♡";
 
-    favorite.setAttribute(
-      "aria-label",
-      "Tambah ke favorit"
-    );
 
-    favorite.textContent = "♡";
+    if (isFavorite(addon.id)) {
+
+      favorite.classList.add(
+        "active"
+      );
+    }
 
 
     favorite.addEventListener(
@@ -175,6 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
       (event) => {
 
         event.preventDefault();
+
         event.stopPropagation();
 
         toggleFavorite(
@@ -186,11 +292,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     content.appendChild(title);
+
     content.appendChild(category);
+
     content.appendChild(description);
 
+
     card.appendChild(image);
+
     card.appendChild(content);
+
     card.appendChild(favorite);
 
 
@@ -200,8 +311,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!addon.id) return;
 
+
         window.location.href =
-          `download.html?id=${encodeURIComponent(addon.id)}`;
+          `download.html?id=${encodeURIComponent(
+            addon.id
+          )}`;
       }
     );
 
@@ -211,17 +325,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // =========================
-  // EMPTY STATE
+  // EMPTY
   // =========================
 
   function showEmpty(message) {
 
-    if (!addonGrid) return;
-
     addonGrid.innerHTML = `
+
       <div class="empty-addon">
+
         <div class="empty-icon">
-          ⛏
+          ⛏️
         </div>
 
         <h3>
@@ -229,10 +343,12 @@ document.addEventListener("DOMContentLoaded", () => {
         </h3>
 
         <p>
-          Addon baru akan muncul di sini
-          setelah ditambahkan.
+          Addon yang tersedia akan
+          muncul di sini.
         </p>
+
       </div>
+
     `;
   }
 
@@ -245,9 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     searchInput.addEventListener(
       "input",
-      () => {
-        renderAddons();
-      }
+      renderAddons
     );
   }
 
@@ -256,29 +370,44 @@ document.addEventListener("DOMContentLoaded", () => {
   // CATEGORY
   // =========================
 
-  categoryButtons.forEach((button) => {
+  categoryButtons.forEach(
+    (button) => {
 
-    button.addEventListener(
-      "click",
-      () => {
+      button.addEventListener(
+        "click",
+        () => {
 
-        categoryButtons.forEach((item) => {
-          item.classList.remove("active");
-        });
+          categoryButtons.forEach(
+            (item) => {
 
-        button.classList.add("active");
+              item.classList.remove(
+                "active"
+              );
 
-        currentCategory =
-          button.dataset.category || "all";
+            }
+          );
 
-        renderAddons();
-      }
-    );
-  });
+
+          button.classList.add(
+            "active"
+          );
+
+
+          currentCategory =
+            button.dataset.category ||
+            "all";
+
+
+          renderAddons();
+        }
+      );
+
+    }
+  );
 
 
   // =========================
-  // FAVORITE
+  // FAVORITES
   // =========================
 
   function getFavorites() {
@@ -298,32 +427,45 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  function saveFavorites(favorites) {
+  function saveFavorites(
+    favorites
+  ) {
 
     localStorage.setItem(
       "smc_dl_favorites",
-      JSON.stringify(favorites)
+      JSON.stringify(
+        favorites
+      )
     );
   }
 
 
+  function isFavorite(id) {
+
+    return getFavorites()
+      .includes(id);
+  }
+
+
   function toggleFavorite(
-    addonId,
+    id,
     button
   ) {
 
     const favorites =
       getFavorites();
 
+
     const index =
-      favorites.indexOf(addonId);
+      favorites.indexOf(id);
 
 
     if (index === -1) {
 
-      favorites.push(addonId);
+      favorites.push(id);
 
-      button.textContent = "♥";
+      button.textContent =
+        "♥";
 
       button.classList.add(
         "active"
@@ -331,9 +473,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     } else {
 
-      favorites.splice(index, 1);
+      favorites.splice(
+        index,
+        1
+      );
 
-      button.textContent = "♡";
+      button.textContent =
+        "♡";
 
       button.classList.remove(
         "active"
@@ -341,7 +487,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    saveFavorites(favorites);
+    saveFavorites(
+      favorites
+    );
   }
 
 
@@ -349,14 +497,31 @@ document.addEventListener("DOMContentLoaded", () => {
   // ESCAPE HTML
   // =========================
 
-  function escapeHTML(value) {
+  function escapeHTML(
+    value
+  ) {
 
     return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+      .replaceAll(
+        "&",
+        "&amp;"
+      )
+      .replaceAll(
+        "<",
+        "&lt;"
+      )
+      .replaceAll(
+        ">",
+        "&gt;"
+      )
+      .replaceAll(
+        '"',
+        "&quot;"
+      )
+      .replaceAll(
+        "'",
+        "&#039;"
+      );
   }
 
 
