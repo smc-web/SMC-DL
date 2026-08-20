@@ -1348,20 +1348,28 @@ input {
 }
 
 .bottom-icon {
-  font-size: 19px;
+  width: 23px;
+  height: 23px;
 
-  line-height: 1;
-}
+  object-fit: contain;
 
-.bottom-link.active,
-.bottom-link:hover {
-  color: var(--blue-light);
-}
+  image-rendering: pixelated;
 
-.bottom-link.active .bottom-icon {
   filter:
     drop-shadow(
-      0 0 8px rgba(0, 160, 255, 0.7)
+      0 0 6px rgba(0, 150, 255, 0.35)
+    );
+
+  transition: 0.25s ease;
+}
+
+.bottom-link:hover .bottom-icon,
+.bottom-link.active .bottom-icon {
+  transform: translateY(-2px);
+
+  filter:
+    drop-shadow(
+      0 0 10px rgba(0, 170, 255, 0.75)
     );
 }
 
