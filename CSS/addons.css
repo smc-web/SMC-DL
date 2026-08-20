@@ -1,20 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap');
 
+/* =========================================================
+   GALLEHS ADDONS — PREMIUM BLUE
+========================================================= */
+
 :root {
   --bg: #020611;
+
   --blue: #168cff;
-  --blue-light: #63c7ff;
+  --blue-light: #6ed5ff;
+  --blue-soft: #3aaeff;
+
   --text: #f5f9ff;
   --text-soft: #91a7c0;
   --text-muted: #52677f;
-  --glass: rgba(7, 19, 38, 0.72);
-  --border: rgba(78, 166, 255, 0.16);
-  --border-hover: rgba(78, 166, 255, 0.45);
+
+  --card:
+    rgba(5, 17, 34, 0.88);
+
+  --card-light:
+    rgba(10, 30, 55, 0.92);
+
+  --border:
+    rgba(50, 160, 255, 0.42);
 }
 
-/* =========================
+
+/* =========================================================
    RESET
-========================= */
+========================================================= */
 
 * {
   margin: 0;
@@ -28,7 +42,8 @@ html {
 
 body {
   min-height: 100vh;
-  padding-bottom: 100px;
+
+  padding-bottom: 105px;
 
   color: var(--text);
 
@@ -36,11 +51,16 @@ body {
 
   background:
     radial-gradient(
-      circle at 50% -10%,
-      rgba(0, 130, 255, 0.18),
-      transparent 35%
+      circle at 50% -15%,
+      rgba(0, 130, 255, 0.22),
+      transparent 38%
     ),
-    var(--bg);
+    radial-gradient(
+      circle at 10% 40%,
+      rgba(0, 100, 255, 0.05),
+      transparent 30%
+    ),
+    #020611;
 
   overflow-x: hidden;
 }
@@ -57,17 +77,17 @@ select {
 }
 
 
-/* =========================
+/* =========================================================
    BACKGROUND
-========================= */
+========================================================= */
 
 .background-glow {
   position: fixed;
 
-  width: 650px;
-  height: 650px;
+  width: 700px;
+  height: 700px;
 
-  top: -400px;
+  top: -450px;
   left: 50%;
 
   transform: translateX(-50%);
@@ -75,30 +95,35 @@ select {
   background:
     radial-gradient(
       circle,
-      rgba(0, 150, 255, 0.2),
+      rgba(0, 150, 255, 0.25),
       transparent 68%
     );
 
-  filter: blur(30px);
+  filter: blur(35px);
 
   pointer-events: none;
 
   z-index: -2;
 
   animation:
-    backgroundPulse 7s ease-in-out infinite;
+    glowPulse 7s ease-in-out infinite;
 }
 
-@keyframes backgroundPulse {
+@keyframes glowPulse {
+
   0%,
   100% {
-    opacity: 0.7;
-    transform: translateX(-50%) scale(1);
+    opacity: .65;
+    transform:
+      translateX(-50%)
+      scale(1);
   }
 
   50% {
     opacity: 1;
-    transform: translateX(-50%) scale(1.08);
+    transform:
+      translateX(-50%)
+      scale(1.08);
   }
 }
 
@@ -107,21 +132,21 @@ select {
 
   inset: 0;
 
-  opacity: 0.3;
+  z-index: -3;
 
   pointer-events: none;
 
-  z-index: -3;
+  opacity: .25;
 
   background-image:
     radial-gradient(
       circle,
-      rgba(255,255,255,0.8) 1px,
+      rgba(255,255,255,.8) 1px,
       transparent 1.5px
     ),
     radial-gradient(
       circle,
-      rgba(80,180,255,0.7) 1px,
+      rgba(60,170,255,.8) 1px,
       transparent 1.5px
     );
 
@@ -134,10 +159,11 @@ select {
     80px 100px;
 
   animation:
-    starsMove 25s linear infinite;
+    starsMove 35s linear infinite;
 }
 
 @keyframes starsMove {
+
   from {
     background-position:
       20px 30px,
@@ -146,15 +172,15 @@ select {
 
   to {
     background-position:
-      130px 140px,
-      20px 10px;
+      140px 160px,
+      10px 20px;
   }
 }
 
 
-/* =========================
+/* =========================================================
    TOP NAVBAR
-========================= */
+========================================================= */
 
 .top-navbar {
   position: sticky;
@@ -170,16 +196,21 @@ select {
   display: flex;
 
   align-items: center;
+
   justify-content: space-between;
 
   background:
-    rgba(2, 8, 20, 0.8);
+    rgba(2, 8, 20, .82);
 
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter:
+    blur(20px);
+
+  -webkit-backdrop-filter:
+    blur(20px);
 
   border-bottom:
-    1px solid rgba(80, 160, 255, 0.1);
+    1px solid
+    rgba(70, 160, 255, .12);
 }
 
 .brand {
@@ -191,7 +222,9 @@ select {
 }
 
 .brand-main {
-  font-family: 'Orbitron', sans-serif;
+  font-family:
+    'Orbitron',
+    sans-serif;
 
   font-size: 23px;
 
@@ -202,15 +235,15 @@ select {
   background:
     linear-gradient(
       110deg,
-      #fff,
-      #fff 25%,
-      #3ebaff 45%,
-      #fff 52%,
-      #008cff 70%,
-      #fff
+      #ffffff 10%,
+      #168cff 35%,
+      #ffffff 50%,
+      #63c7ff 65%,
+      #ffffff 85%
     );
 
-  background-size: 250% 100%;
+  background-size:
+    300% 100%;
 
   -webkit-background-clip: text;
   background-clip: text;
@@ -218,13 +251,14 @@ select {
   color: transparent;
 
   animation:
-    shine 4s linear infinite;
+    titleShine 4s linear infinite;
 }
 
 .brand-sub {
   margin-top: 5px;
 
-  color: var(--text-muted);
+  color:
+    var(--text-muted);
 
   font-size: 7px;
 
@@ -241,43 +275,50 @@ select {
   justify-content: center;
 
   border:
-    1px solid rgba(70, 160, 255, 0.18);
+    1px solid
+    rgba(60, 170, 255, .22);
 
   border-radius: 13px;
 
   background:
-    rgba(15, 45, 80, 0.3);
+    rgba(10, 35, 65, .4);
 
-  color: var(--blue-light);
+  color:
+    var(--blue-light);
 
   font-size: 22px;
 
-  transition:
-    0.25s ease;
+  cursor: pointer;
+
+  transition: .25s ease;
 }
 
 .back-button:hover {
-  background:
-    rgba(0, 130, 255, 0.16);
+  transform:
+    translateX(-3px);
 
   border-color:
-    rgba(50, 160, 255, 0.45);
+    rgba(80, 190, 255, .65);
 
-  transform:
-    translateX(-2px);
+  background:
+    rgba(0, 130, 255, .16);
+
+  box-shadow:
+    0 0 20px
+    rgba(0, 140, 255, .15);
 }
 
 
-/* =========================
+/* =========================================================
    PAGE HEADER
-========================= */
+========================================================= */
 
 .page-header {
   width:
-    min(100% - 30px, 1150px);
+    min(calc(100% - 30px), 1150px);
 
   margin:
-    0 auto;
+    auto;
 
   padding:
     70px 0 35px;
@@ -291,50 +332,51 @@ select {
     9px;
 
   font-weight:
-    700;
+    800;
 
   letter-spacing:
     3px;
+
+  text-transform:
+    uppercase;
 }
 
-
-/* =========================
-   MAIN TITLE SHINE
-========================= */
-
 .page-header h1 {
-  position: relative;
+  position:
+    relative;
 
-  display: inline-block;
+  display:
+    inline-block;
 
-  margin-top: 10px;
+  margin-top:
+    10px;
 
   font-family:
     'Orbitron',
     sans-serif;
 
   font-size:
-    clamp(28px, 6vw, 48px);
+    clamp(29px, 6vw, 50px);
+
+  font-weight:
+    800;
 
   letter-spacing:
     1px;
 
-  color:
-    transparent;
-
   background:
     linear-gradient(
       110deg,
-      #168cff 15%,
-      #63c7ff 30%,
+      #168cff 5%,
+      #63c7ff 28%,
       #ffffff 43%,
-      #ffffff 48%,
-      #168cff 60%,
-      #63c7ff 80%
+      #ffffff 50%,
+      #168cff 65%,
+      #63c7ff 90%
     );
 
   background-size:
-    280% 100%;
+    300% 100%;
 
   -webkit-background-clip:
     text;
@@ -342,24 +384,30 @@ select {
   background-clip:
     text;
 
+  color:
+    transparent;
+
   animation:
     titleShine 3.5s linear infinite;
 
-  text-shadow:
-    0 0 25px
-    rgba(0, 140, 255, 0.15);
+  filter:
+    drop-shadow(
+      0 0 18px
+      rgba(0, 140, 255, .18)
+    );
 }
 
 .page-header h1::after {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
   left: 0;
-  right: 0;
+  bottom: -8px;
 
-  bottom: -7px;
-
+  width: 100%;
   height: 2px;
 
   background:
@@ -371,26 +419,31 @@ select {
       transparent
     );
 
-  opacity: 0.45;
+  opacity: .6;
 
   filter:
-    blur(1px);
+    blur(.5px);
 }
 
 @keyframes titleShine {
+
   0% {
     background-position:
-      280% center;
+      300% center;
   }
 
   100% {
     background-position:
-      -80% center;
+      -50% center;
   }
 }
 
 .page-header p {
-  margin-top: 18px;
+  max-width:
+    680px;
+
+  margin-top:
+    20px;
 
   color:
     var(--text-soft);
@@ -399,17 +452,17 @@ select {
     13px;
 
   line-height:
-    1.7;
+    1.8;
 }
 
 
-/* =========================
+/* =========================================================
    SEARCH
-========================= */
+========================================================= */
 
 .search-section {
   width:
-    min(100% - 30px, 1150px);
+    min(calc(100% - 30px), 1150px);
 
   margin:
     0 auto 22px;
@@ -425,63 +478,80 @@ select {
   padding: 6px;
 
   border:
-    1px solid rgba(70, 160, 255, 0.2);
+    1px solid
+    rgba(60, 160, 255, .25);
 
-  border-radius: 18px;
+  border-radius:
+    17px;
 
   background:
-    rgba(7, 18, 35, 0.75);
+    rgba(6, 19, 38, .78);
 
   backdrop-filter:
-    blur(16px);
+    blur(18px);
 
   transition:
-    0.3s ease;
+    .3s ease;
 }
 
 .search-box:focus-within {
   border-color:
-    rgba(50, 160, 255, 0.5);
+    rgba(70, 190, 255, .7);
 
   box-shadow:
     0 0 30px
-    rgba(0, 130, 255, 0.12);
+    rgba(0, 130, 255, .12);
 }
 
 .search-icon {
-  width: 45px;
+  width:
+    45px;
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
-  justify-content: center;
+  align-items:
+    center;
+
+  justify-content:
+    center;
 }
 
 .search-icon img {
-  width: 23px;
-  height: 23px;
+  width:
+    23px;
 
-  object-fit: contain;
+  height:
+    23px;
 
-  image-rendering: pixelated;
+  object-fit:
+    contain;
+
+  image-rendering:
+    pixelated;
 
   filter:
     drop-shadow(
-      0 0 7px
-      rgba(0, 150, 255, 0.6)
+      0 0 8px
+      rgba(0, 160, 255, .65)
     );
 }
 
 .search-box input {
-  flex: 1;
+  flex:
+    1;
 
-  min-width: 0;
+  min-width:
+    0;
 
   padding:
     14px 8px;
 
-  border: 0;
-  outline: 0;
+  border:
+    0;
+
+  outline:
+    0;
 
   background:
     transparent;
@@ -506,7 +576,7 @@ select {
     0;
 
   border-radius:
-    13px;
+    12px;
 
   background:
     linear-gradient(
@@ -528,26 +598,26 @@ select {
     pointer;
 
   transition:
-    0.25s ease;
+    .25s ease;
 }
 
 .search-box button:hover {
   transform:
-    translateY(-1px);
+    translateY(-2px);
 
   box-shadow:
     0 8px 25px
-    rgba(0, 140, 255, 0.3);
+    rgba(0, 140, 255, .3);
 }
 
 
-/* =========================
+/* =========================================================
    FILTER
-========================= */
+========================================================= */
 
 .filter-section {
   width:
-    min(100% - 30px, 1150px);
+    min(calc(100% - 30px), 1150px);
 
   margin:
     0 auto 35px;
@@ -585,9 +655,6 @@ select {
 }
 
 .filter-button {
-  position:
-    relative;
-
   flex-shrink:
     0;
 
@@ -596,54 +663,44 @@ select {
 
   border:
     1px solid
-    rgba(70, 150, 220, 0.15);
+    rgba(70, 160, 230, .18);
 
   border-radius:
-    12px;
+    11px;
 
   background:
-    rgba(15, 35, 60, 0.4);
+    rgba(10, 35, 65, .45);
 
   color:
     var(--text-muted);
 
   font-size:
-    11px;
+    10px;
+
+  font-weight:
+    600;
 
   cursor:
     pointer;
 
   transition:
-    0.25s ease;
-
-  overflow:
-    hidden;
+    .25s ease;
 }
 
-.filter-button:hover {
-  color:
-    var(--text-soft);
-
-  border-color:
-    rgba(50, 160, 255, 0.3);
-
-  transform:
-    translateY(-1px);
-}
-
+.filter-button:hover,
 .filter-button.active {
   color:
     white;
 
   border-color:
-    rgba(50, 160, 255, 0.45);
+    rgba(60, 180, 255, .55);
 
   background:
-    rgba(0, 130, 255, 0.16);
+    rgba(0, 130, 255, .16);
 
   box-shadow:
-    0 0 20px
-    rgba(0, 130, 255, 0.08);
+    0 0 18px
+    rgba(0, 130, 255, .1);
 }
 
 .sort-box {
@@ -674,10 +731,10 @@ select {
 
   border:
     1px solid
-    rgba(70, 150, 220, 0.15);
+    rgba(70, 160, 230, .18);
 
   border-radius:
-    11px;
+    10px;
 
   outline:
     0;
@@ -693,13 +750,13 @@ select {
 }
 
 
-/* =========================
-   ADDON SECTION
-========================= */
+/* =========================================================
+   SECTION
+========================================================= */
 
 .addon-section {
   width:
-    min(100% - 30px, 1150px);
+    min(calc(100% - 30px), 1150px);
 
   margin:
     0 auto;
@@ -733,7 +790,7 @@ select {
     8px;
 
   font-weight:
-    700;
+    800;
 
   letter-spacing:
     3px;
@@ -746,9 +803,6 @@ select {
 
   font-size:
     22px;
-
-  color:
-    var(--text);
 }
 
 .addon-count {
@@ -756,13 +810,13 @@ select {
     var(--text-muted);
 
   font-size:
-    11px;
+    10px;
 }
 
 
-/* =========================
-   ADDON GRID
-========================= */
+/* =========================================================
+   GRID
+========================================================= */
 
 .addon-grid {
   display:
@@ -776,9 +830,9 @@ select {
 }
 
 
-/* =========================
-   ADDON CARD
-========================= */
+/* =========================================================
+   CARD
+========================================================= */
 
 .addon-card {
   position:
@@ -789,36 +843,77 @@ select {
 
   border:
     1px solid
-    var(--border);
+    rgba(45, 160, 255, .48);
 
   border-radius:
-    20px;
+    18px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(10, 30, 55, 0.82),
-      rgba(4, 14, 28, 0.75)
+      rgba(10, 31, 58, .94),
+      rgba(3, 13, 27, .94)
     );
 
-  backdrop-filter:
-    blur(14px);
-
-  -webkit-backdrop-filter:
-    blur(14px);
-
   box-shadow:
-    0 12px 35px
-    rgba(0, 0, 0, 0.2);
+    0 10px 35px
+    rgba(0, 50, 120, .16),
+    inset 0 0 20px
+    rgba(0, 130, 255, .025);
 
   transition:
-    transform 0.35s ease,
-    border-color 0.35s ease,
-    box-shadow 0.35s ease;
+    transform .3s ease,
+    border-color .3s ease,
+    box-shadow .3s ease;
 
   animation:
-    cardAppear 0.55s ease both;
+    cardIn .5s ease both;
 }
+
+@keyframes cardIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(18px)
+      scale(.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   BLUE BORDER GLOW
+========================================================= */
+
+.addon-card:hover {
+  transform:
+    translateY(-6px);
+
+  border-color:
+    rgba(80, 195, 255, .9);
+
+  box-shadow:
+    0 0 22px
+    rgba(0, 140, 255, .2),
+    0 20px 55px
+    rgba(0, 80, 190, .22),
+    inset 0 0 25px
+    rgba(0, 130, 255, .04);
+}
+
+
+/* =========================================================
+   SHINE
+========================================================= */
 
 .addon-card::before {
   content:
@@ -831,7 +926,7 @@ select {
     -120%;
 
   left:
-    -70%;
+    -80%;
 
   width:
     55%;
@@ -840,139 +935,111 @@ select {
     340%;
 
   z-index:
-    5;
+    50;
 
   pointer-events:
     none;
+
+  transform:
+    rotate(25deg);
 
   background:
     linear-gradient(
       90deg,
       transparent 0%,
-      rgba(255,255,255,0.02) 30%,
-      rgba(255,255,255,0.22) 50%,
-      rgba(99,199,255,0.08) 58%,
+      rgba(255,255,255,.03) 30%,
+      rgba(255,255,255,.7) 50%,
+      rgba(100,210,255,.22) 58%,
       transparent 75%
     );
 
-  transform:
-    rotate(25deg);
-
   opacity:
     0;
-
-  transition:
-    opacity 0.2s ease;
 }
 
-.addon-card:hover::before {
+.addon-card:hover::before,
+.addon-card:active::before {
   opacity:
     1;
 
   animation:
-    cardShine 1.05s ease;
+    cardShine .85s ease forwards;
 }
 
 @keyframes cardShine {
+
   0% {
     left:
-      -75%;
+      -80%;
   }
 
   100% {
     left:
-      145%;
-  }
-}
-
-.addon-card::after {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  z-index:
-    -1;
-
-  border-radius:
-    inherit;
-
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(0, 145, 255, 0.15),
-      transparent 55%
-    );
-
-  opacity:
-    0;
-
-  transition:
-    opacity 0.35s ease;
-}
-
-.addon-card:hover {
-  transform:
-    translateY(-7px)
-    scale(1.01);
-
-  border-color:
-    var(--border-hover);
-
-  box-shadow:
-    0 22px 65px
-    rgba(0, 115, 255, 0.2),
-    0 0 25px
-    rgba(0, 145, 255, 0.08);
-}
-
-.addon-card:hover::after {
-  opacity:
-    1;
-}
-
-@keyframes cardAppear {
-  from {
-    opacity:
-      0;
-
-    transform:
-      translateY(15px)
-      scale(0.98);
-  }
-
-  to {
-    opacity:
-      1;
-
-    transform:
-      translateY(0)
-      scale(1);
+      150%;
   }
 }
 
 
-/* =========================
-   ADDON IMAGE
-========================= */
+/* =========================================================
+   THUMBNAIL
+========================================================= */
 
 .addon-thumbnail {
   position:
     relative;
 
+  width:
+    100%;
+
   aspect-ratio:
-    16 / 10;
+    16 / 9;
 
   overflow:
     hidden;
 
   background:
-    #071426;
+    #061323;
 }
+
+.addon-thumbnail img {
+  width:
+    100%;
+
+  height:
+    100%;
+
+  display:
+    block;
+
+  /*
+    FULL IMAGE
+    Tidak dipotong.
+  */
+  object-fit:
+    contain;
+
+  background:
+    #061323;
+
+  transition:
+    transform .45s ease,
+    filter .45s ease;
+}
+
+.addon-card:hover
+.addon-thumbnail img {
+  transform:
+    scale(1.025);
+
+  filter:
+    brightness(1.08)
+    saturate(1.08);
+}
+
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
 
 .addon-thumbnail::after {
   content:
@@ -990,122 +1057,113 @@ select {
   background:
     linear-gradient(
       180deg,
-      transparent 55%,
-      rgba(0, 5, 15, 0.48)
+      rgba(0,0,0,0) 55%,
+      rgba(0,5,15,.5) 100%
     );
 }
 
-.addon-thumbnail img {
-  width:
-    100%;
 
-  height:
-    100%;
-
-  display:
-    block;
-
-  object-fit:
-    cover;
-
-  transition:
-    transform 0.55s ease,
-    filter 0.55s ease;
-}
-
-.addon-card:hover
-.addon-thumbnail img {
-  transform:
-    scale(1.08);
-
-  filter:
-    brightness(1.08)
-    saturate(1.08);
-}
-
-
-/* =========================
-   IMAGE BADGE
-========================= */
+/* =========================================================
+   CATEGORY
+========================================================= */
 
 .addon-badge {
   position:
     absolute;
 
   top:
-    11px;
+    10px;
 
   left:
-    11px;
+    10px;
 
   z-index:
-    8;
+    10;
 
   padding:
     6px 9px;
 
-  color:
-    #ffffff;
-
-  background:
-    rgba(0, 115, 255, 0.72);
-
   border:
     1px solid
-    rgba(120, 205, 255, 0.25);
+    rgba(90, 200, 255, .55);
 
   border-radius:
-    9px;
+    8px;
 
-  backdrop-filter:
-    blur(8px);
+  background:
+    rgba(2, 18, 38, .82);
+
+  color:
+    #72d2ff;
+
+  font-family:
+    'Orbitron',
+    sans-serif;
 
   font-size:
-    8px;
+    7px;
 
   font-weight:
     700;
 
   letter-spacing:
-    0.8px;
+    1px;
 
   text-transform:
     uppercase;
+
+  backdrop-filter:
+    blur(9px);
+
+  box-shadow:
+    0 0 15px
+    rgba(0, 140, 255, .12);
 }
 
 
-/* =========================
-   ADDON INFO
-========================= */
+/* =========================================================
+   INFO
+========================================================= */
 
 .addon-info {
-  position:
-    relative;
-
   padding:
-    16px;
+    14px;
 }
 
 .addon-title {
+  font-family:
+    'Orbitron',
+    sans-serif;
+
   font-size:
-    15px;
+    13px;
 
   font-weight:
     700;
 
   line-height:
-    1.35;
+    1.4;
+
+  letter-spacing:
+    .3px;
+
+  color:
+    #f7fbff;
+
+  text-shadow:
+    0 0 15px
+    rgba(70, 190, 255, .12);
 }
 
 .addon-description {
   margin-top:
-    7px;
+    6px;
 
   color:
     var(--text-soft);
 
   font-size:
-    12px;
+    10px;
 
   line-height:
     1.6;
@@ -1114,7 +1172,7 @@ select {
     -webkit-box;
 
   -webkit-line-clamp:
-    2;
+    3;
 
   -webkit-box-orient:
     vertical;
@@ -1123,37 +1181,12 @@ select {
     hidden;
 }
 
+
+/* =========================================================
+   META
+========================================================= */
+
 .addon-meta {
-  display:
-    flex;
-
-  justify-content:
-    space-between;
-
-  gap:
-    10px;
-
-  margin-top:
-    13px;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    10px;
-}
-
-.addon-rating {
-  color:
-    var(--blue-light);
-}
-
-
-/* =========================
-   ADDON ACTIONS
-========================= */
-
-.addon-actions {
   display:
     flex;
 
@@ -1163,22 +1196,103 @@ select {
   justify-content:
     space-between;
 
-  gap:
+  margin-top:
     10px;
 
+  padding-top:
+    9px;
+
+  border-top:
+    1px solid
+    rgba(80, 160, 220, .09);
+
+  color:
+    var(--text-muted);
+
+  font-size:
+    8px;
+}
+
+.addon-rating {
+  color:
+    var(--blue-light);
+
+  font-weight:
+    700;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.addon-actions {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    7px;
+
   margin-top:
-    14px;
+    11px;
 }
 
 .download-button {
   flex:
     1;
 
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
   padding:
-    10px 14px;
+    9px 10px;
+
+  border:
+    1px solid
+    rgba(50, 170, 255, .35);
 
   border-radius:
-    11px;
+    9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0, 140, 255, .27),
+      rgba(20, 80, 220, .2)
+    );
+
+  color:
+    #72d2ff;
+
+  font-family:
+    'Orbitron',
+    sans-serif;
+
+  font-size:
+    8px;
+
+  font-weight:
+    700;
+
+  transition:
+    .25s ease;
+}
+
+.download-button:hover {
+  color:
+    white;
+
+  border-color:
+    rgba(100, 210, 255, .85);
 
   background:
     linear-gradient(
@@ -1187,101 +1301,66 @@ select {
       #1764ff
     );
 
-  color:
-    white;
-
-  text-align:
-    center;
-
-  font-size:
-    11px;
-
-  font-weight:
-    700;
-
   box-shadow:
-    0 5px 18px
-    rgba(0, 130, 255, 0.12);
+    0 0 20px
+    rgba(0, 140, 255, .28);
 
-  transition:
-    0.25s ease;
-}
-
-.download-button:hover {
   transform:
-    translateY(-2px);
-
-  box-shadow:
-    0 9px 25px
-    rgba(0, 140, 255, 0.3);
+    translateY(-1px);
 }
 
 .favorite-button {
   width:
-    38px;
+    34px;
 
   height:
-    38px;
+    34px;
 
   flex-shrink:
     0;
 
   border:
     1px solid
-    rgba(80, 150, 220, 0.15);
+    rgba(70, 160, 230, .22);
 
   border-radius:
-    11px;
+    9px;
 
   background:
-    rgba(20, 50, 90, 0.2);
+    rgba(10, 35, 65, .5);
 
   color:
-    #7890aa;
-
-  font-size:
-    18px;
+    #62819d;
 
   cursor:
     pointer;
 
   transition:
-    0.25s ease;
+    .25s ease;
 }
 
 .favorite-button:hover {
   color:
-    var(--blue-light);
+    #70d2ff;
 
   border-color:
-    rgba(50, 160, 255, 0.35);
+    rgba(80, 195, 255, .7);
 
   background:
-    rgba(0, 130, 255, 0.12);
-
-  transform:
-    scale(1.06);
-}
-
-.favorite-button.active {
-  color:
-    white;
-
-  background:
-    var(--blue);
-
-  border-color:
-    var(--blue);
+    rgba(0, 130, 255, .12);
 
   box-shadow:
-    0 5px 20px
-    rgba(0, 130, 255, 0.25);
+    0 0 15px
+    rgba(0, 150, 255, .2);
+
+  transform:
+    scale(1.05);
 }
 
 
-/* =========================
-   EMPTY STATE
-========================= */
+/* =========================================================
+   EMPTY
+========================================================= */
 
 .empty-state {
   min-height:
@@ -1304,13 +1383,13 @@ select {
 
   border:
     1px dashed
-    rgba(80, 150, 210, 0.14);
+    rgba(80, 160, 220, .2);
 
   border-radius:
-    20px;
+    18px;
 
   background:
-    rgba(5, 15, 28, 0.28);
+    rgba(5, 15, 28, .3);
 
   text-align:
     center;
@@ -1321,7 +1400,7 @@ select {
     14px;
 
   color:
-    rgba(70, 170, 255, 0.5);
+    rgba(70, 180, 255, .5);
 
   font-size:
     35px;
@@ -1355,13 +1434,13 @@ select {
 }
 
 
-/* =========================
+/* =========================================================
    ADVERTISEMENT
-========================= */
+========================================================= */
 
 .ad-container {
   width:
-    min(100% - 30px, 1000px);
+    min(calc(100% - 30px), 1000px);
 
   margin:
     70px auto 30px;
@@ -1382,13 +1461,13 @@ select {
 
   border:
     1px dashed
-    rgba(100, 150, 200, 0.14);
+    rgba(100, 160, 210, .15);
 
   border-radius:
     16px;
 
   color:
-    rgba(120, 150, 180, 0.3);
+    rgba(120, 150, 180, .3);
 
   font-size:
     9px;
@@ -1398,13 +1477,13 @@ select {
 }
 
 
-/* =========================
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 .footer {
   width:
-    min(100% - 30px, 1150px);
+    min(calc(100% - 30px), 1150px);
 
   margin:
     80px auto 30px;
@@ -1417,7 +1496,7 @@ select {
 
   border-top:
     1px solid
-    rgba(80, 150, 220, 0.1);
+    rgba(80, 150, 220, .1);
 }
 
 .footer-logo {
@@ -1436,7 +1515,7 @@ select {
 
   text-shadow:
     0 0 20px
-    rgba(0, 145, 255, 0.25);
+    rgba(0, 145, 255, .25);
 }
 
 .footer p {
@@ -1472,7 +1551,7 @@ select {
     11px;
 
   transition:
-    0.2s ease;
+    .2s ease;
 }
 
 .footer-links a:hover {
@@ -1492,9 +1571,9 @@ select {
 }
 
 
-/* =========================
+/* =========================================================
    BOTTOM NAVBAR
-========================= */
+========================================================= */
 
 .bottom-navbar {
   position:
@@ -1529,13 +1608,13 @@ select {
 
   border:
     1px solid
-    rgba(80, 160, 255, 0.18);
+    rgba(80, 160, 255, .2);
 
   border-radius:
     21px;
 
   background:
-    rgba(5, 15, 30, 0.86);
+    rgba(5, 15, 30, .88);
 
   backdrop-filter:
     blur(20px);
@@ -1545,7 +1624,7 @@ select {
 
   box-shadow:
     0 15px 50px
-    rgba(0, 0, 0, 0.4);
+    rgba(0,0,0,.4);
 }
 
 .bottom-link {
@@ -1574,7 +1653,7 @@ select {
     9px;
 
   transition:
-    0.25s ease;
+    .25s ease;
 }
 
 .bottom-icon {
@@ -1593,11 +1672,11 @@ select {
   filter:
     drop-shadow(
       0 0 6px
-      rgba(0, 150, 255, 0.35)
+      rgba(0,150,255,.35)
     );
 
   transition:
-    0.25s ease;
+    .25s ease;
 }
 
 .bottom-link:hover,
@@ -1614,31 +1693,14 @@ select {
   filter:
     drop-shadow(
       0 0 10px
-      rgba(0, 170, 255, 0.75)
+      rgba(0,170,255,.75)
     );
 }
 
 
-/* =========================
-   GLOBAL SHINE
-========================= */
-
-@keyframes shine {
-  0% {
-    background-position:
-      200% 0;
-  }
-
-  100% {
-    background-position:
-      -200% 0;
-  }
-}
-
-
-/* =========================
+/* =========================================================
    TABLET
-========================= */
+========================================================= */
 
 @media (max-width: 800px) {
 
@@ -1659,13 +1721,12 @@ select {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
   }
-
 }
 
 
-/* =========================
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media (max-width: 560px) {
 
@@ -1683,13 +1744,16 @@ select {
   }
 
   .page-header {
+    width:
+      calc(100% - 24px);
+
     padding-top:
       50px;
   }
 
   .page-header h1 {
     font-size:
-      29px;
+      28px;
   }
 
   .page-header p {
@@ -1697,9 +1761,11 @@ select {
       11px;
   }
 
-  .search-box button {
-    padding:
-      11px 14px;
+  .search-section,
+  .filter-section,
+  .addon-section {
+    width:
+      calc(100% - 24px);
   }
 
   .addon-grid {
@@ -1707,48 +1773,94 @@ select {
       repeat(2, minmax(0, 1fr));
 
     gap:
-      10px;
+      9px;
+  }
+
+  .addon-card {
+    border-radius:
+      14px;
   }
 
   .addon-thumbnail {
+    /*
+      Mengikuti rasio foto.
+      Foto tidak dipotong.
+    */
     aspect-ratio:
-      1 / 0.85;
+      16 / 9;
   }
 
   .addon-info {
     padding:
-      12px;
+      9px;
   }
 
   .addon-title {
     font-size:
-      12px;
-  }
-
-  .addon-description {
-    font-size:
       10px;
   }
 
-  .addon-meta {
+  .addon-description {
+    margin-top:
+      5px;
+
     font-size:
-      9px;
+      8px;
+
+    line-height:
+      1.45;
+
+    -webkit-line-clamp:
+      3;
+  }
+
+  .addon-meta {
+    margin-top:
+      7px;
+
+    padding-top:
+      7px;
+
+    font-size:
+      7px;
+  }
+
+  .addon-badge {
+    top:
+      7px;
+
+    left:
+      7px;
+
+    padding:
+      5px 7px;
+
+    font-size:
+      6px;
+  }
+
+  .addon-actions {
+    margin-top:
+      8px;
   }
 
   .download-button {
     padding:
-      9px 8px;
+      7px 5px;
 
     font-size:
-      9px;
+      7px;
   }
 
   .favorite-button {
     width:
-      33px;
+      28px;
 
     height:
-      33px;
+      28px;
+
+    font-size:
+      13px;
   }
 
   .section-heading h2 {
@@ -1765,29 +1877,37 @@ select {
     margin-bottom:
       100px;
   }
-
 }
 
 
-/* =========================
+/* =========================================================
    VERY SMALL PHONE
-========================= */
+========================================================= */
 
 @media (max-width: 370px) {
 
   .addon-grid {
-    grid-template-columns:
-      1fr;
+    gap:
+      7px;
   }
 
-  .addon-thumbnail {
-    aspect-ratio:
-      16 / 9;
+  .addon-info {
+    padding:
+      8px;
   }
 
-  .page-header h1 {
+  .addon-title {
     font-size:
-      26px;
+      9px;
   }
 
-}
+  .addon-description {
+    font-size:
+      7.5px;
+  }
+
+  .download-button {
+    font-size:
+      6.5px;
+  }
+  }
