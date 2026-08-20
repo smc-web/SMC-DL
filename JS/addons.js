@@ -13,6 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const addonGrid =
     document.getElementById("addonGrid");
 
+  const addonCount =
+    document.getElementById("addonCount");
+
+  const emptyState =
+    document.getElementById("emptyState");
+
+  const noResult =
+    document.getElementById("noResult");
+
   const categoryButtons =
     document.querySelectorAll(
       "[data-category]"
@@ -24,9 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentCategory = "all";
 
 
-  // =========================
-  // LOAD FROM SUPABASE
-  // =========================
+  // =====================================================
+  // LOAD ADDONS FROM SUPABASE
+  // =====================================================
 
   async function loadAddons() {
 
@@ -39,6 +48,14 @@ document.addEventListener("DOMContentLoaded", () => {
           Memuat addon...
         </div>
       `;
+
+      if (emptyState) {
+        emptyState.style.display = "none";
+      }
+
+      if (noResult) {
+        noResult.style.display = "none";
+      }
 
 
       const response =
@@ -75,6 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
         await response.json();
 
 
+      updateCount(addons.length);
+
       renderAddons();
 
 
@@ -104,13 +123,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         </div>
       `;
+
+
+      updateCount(0);
     }
   }
 
 
-  // =========================
-  // RENDER
-  // =========================
+  // =====================================================
+  // RENDER ADDONS
+  // =====================================================
 
   function renderAddons() {
 
@@ -161,34 +183,81 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
 
+    // =========================================
+    // UPDATE COUNT
+    // =========================================
+
+    updateCount(filtered.length);
+
+
+    // =========================================
+    // EMPTY STATE
+    // =========================================
+
     if (filtered.length === 0) {
 
-      showEmpty(
-        addons.length === 0
-          ? "Belum ada addon tersedia."
-          : "Addon tidak ditemukan."
-      );
+      addonGrid.innerHTML = "";
+
+
+      if (addons.length === 0) {
+
+        if (emptyState) {
+          emptyState.style.display = "flex";
+        }
+
+        if (noResult) {
+          noResult.style.display = "none";
+        }
+
+      } else {
+
+        if (emptyState) {
+          emptyState.style.display = "none";
+        }
+
+        if (noResult) {
+          noResult.style.display = "flex";
+        }
+      }
 
       return;
     }
 
+
+    // =========================================
+    // HIDE EMPTY STATE
+    // =========================================
+
+    if (emptyState) {
+      emptyState.style.display = "none";
+    }
+
+    if (noResult) {
+      noResult.style.display = "none";
+    }
+
+
+    // =========================================
+    // CREATE CARDS
+    // =========================================
 
     addonGrid.innerHTML = "";
 
 
     filtered.forEach((addon) => {
 
-      addonGrid.appendChild(
-        createAddonCard(addon)
-      );
+      const card =
+        createAddonCard(addon);
+
+      addonGrid.appendChild(card);
 
     });
   }
 
 
-  // =========================
-  // CREATE CARD
-  // =========================
+  // =====================================================
+  // CREATE ADDON CARD
+  // =====================================================
 
   function createAddonCard(addon) {
 
@@ -199,11 +268,19 @@ document.addEventListener("DOMContentLoaded", () => {
       "addon-card";
 
 
+    // =========================================
+    // THUMBNAIL
+    // =========================================
+
+    const thumbnail =
+      document.createElement("div");
+
+    thumbnail.className =
+      "addon-thumbnail";
+
+
     const image =
       document.createElement("img");
-
-    image.className =
-      "addon-image";
 
     image.src =
       addon.image_url || "";
@@ -215,22 +292,12 @@ document.addEventListener("DOMContentLoaded", () => {
       "lazy";
 
 
-    const content =
-      document.createElement("div");
-
-    content.className =
-      "addon-content";
+    thumbnail.appendChild(image);
 
 
-    const title =
-      document.createElement("h3");
-
-    title.className =
-      "addon-title";
-
-    title.textContent =
-      addon.name || "Untitled";
-
+    // =========================================
+    // CATEGORY
+    // =========================================
 
     const category =
       document.createElement("span");
@@ -242,6 +309,38 @@ document.addEventListener("DOMContentLoaded", () => {
       addon.category || "Addon";
 
 
+    thumbnail.appendChild(category);
+
+
+    // =========================================
+    // CARD INFO
+    // =========================================
+
+    const info =
+      document.createElement("div");
+
+    info.className =
+      "addon-info";
+
+
+    // =========================================
+    // TITLE
+    // =========================================
+
+    const title =
+      document.createElement("h3");
+
+    title.className =
+      "addon-title";
+
+    title.textContent =
+      addon.name || "Untitled";
+
+
+    // =========================================
+    // DESCRIPTION
+    // =========================================
+
     const description =
       document.createElement("p");
 
@@ -252,58 +351,164 @@ document.addEventListener("DOMContentLoaded", () => {
       addon.description || "";
 
 
-    const favorite =
-      document.createElement("button");
+    // =========================================
+    // META
+    // =========================================
 
-    favorite.type =
-      "button";
+    const meta =
+      document.createElement("div");
 
-    favorite.className =
-      "favorite-button";
-
-    favorite.textContent =
-      isFavorite(addon.id)
-        ? "♥"
-        : "♡";
+    meta.className =
+      "addon-meta";
 
 
-    if (isFavorite(addon.id)) {
+    const metaLeft =
+      document.createElement("span");
 
-      favorite.classList.add(
-        "active"
-      );
+    metaLeft.textContent =
+      "Minecraft";
+
+
+    const rating =
+      document.createElement("span");
+
+    rating.className =
+      "addon-rating";
+
+
+    if (
+      addon.rating !== undefined &&
+      addon.rating !== null &&
+      addon.rating !== ""
+    ) {
+
+      rating.textContent =
+        `★ ${addon.rating}`;
+
+    } else {
+
+      rating.textContent =
+        "★ —";
     }
 
 
-    favorite.addEventListener(
+    meta.appendChild(metaLeft);
+    meta.appendChild(rating);
+
+
+    // =========================================
+    // ACTIONS
+    // =========================================
+
+    const actions =
+      document.createElement("div");
+
+    actions.className =
+      "addon-actions";
+
+
+    // DOWNLOAD BUTTON
+
+    const downloadButton =
+      document.createElement("button");
+
+    downloadButton.type =
+      "button";
+
+    downloadButton.className =
+      "download-button";
+
+    downloadButton.textContent =
+      "DOWNLOAD";
+
+
+    downloadButton.addEventListener(
       "click",
       (event) => {
 
         event.preventDefault();
-
         event.stopPropagation();
+
+
+        if (!addon.id) return;
+
+
+        window.location.href =
+          `download.html?id=${encodeURIComponent(
+            addon.id
+          )}`;
+      }
+    );
+
+
+    // FAVORITE BUTTON
+
+    const favoriteButton =
+      document.createElement("button");
+
+    favoriteButton.type =
+      "button";
+
+    favoriteButton.className =
+      "favorite-button";
+
+
+    updateFavoriteButton(
+      favoriteButton,
+      addon.id
+    );
+
+
+    favoriteButton.addEventListener(
+      "click",
+      (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
 
         toggleFavorite(
           addon.id,
-          favorite
+          favoriteButton
         );
       }
     );
 
 
-    content.appendChild(title);
+    actions.appendChild(
+      downloadButton
+    );
 
-    content.appendChild(category);
+    actions.appendChild(
+      favoriteButton
+    );
 
-    content.appendChild(description);
+
+    // =========================================
+    // BUILD INFO
+    // =========================================
+
+    info.appendChild(title);
+
+    info.appendChild(description);
+
+    info.appendChild(meta);
+
+    info.appendChild(actions);
 
 
-    card.appendChild(image);
+    // =========================================
+    // BUILD CARD
+    // =========================================
 
-    card.appendChild(content);
+    card.appendChild(thumbnail);
 
-    card.appendChild(favorite);
+    card.appendChild(info);
 
+
+    // =========================================
+    // CARD CLICK
+    // =========================================
 
     card.addEventListener(
       "click",
@@ -324,51 +529,65 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  // =========================
-  // EMPTY
-  // =========================
+  // =====================================================
+  // UPDATE COUNT
+  // =====================================================
 
-  function showEmpty(message) {
+  function updateCount(count) {
 
-    addonGrid.innerHTML = `
+    if (!addonCount) return;
 
-      <div class="empty-addon">
 
-        <div class="empty-icon">
-          ⛏️
-        </div>
-
-        <h3>
-          ${escapeHTML(message)}
-        </h3>
-
-        <p>
-          Addon yang tersedia akan
-          muncul di sini.
-        </p>
-
-      </div>
-
-    `;
+    addonCount.textContent =
+      `${count} addon${count === 1 ? "" : ""}`;
   }
 
 
-  // =========================
+  // =====================================================
   // SEARCH
-  // =========================
+  // =====================================================
 
   if (searchInput) {
 
     searchInput.addEventListener(
       "input",
-      renderAddons
+      () => {
+
+        renderAddons();
+
+      }
     );
   }
 
 
-  // =========================
-  // CATEGORY
-  // =========================
+  // =====================================================
+  // SEARCH FORM
+  // =====================================================
+
+  const searchForm =
+    document.getElementById(
+      "addonSearchForm"
+    );
+
+
+  if (searchForm) {
+
+    searchForm.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
+
+        renderAddons();
+
+      }
+    );
+  }
+
+
+  // =====================================================
+  // CATEGORY FILTER
+  // =====================================================
 
   categoryButtons.forEach(
     (button) => {
@@ -399,6 +618,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
           renderAddons();
+
         }
       );
 
@@ -406,19 +626,26 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
-  // =========================
+  // =====================================================
   // FAVORITES
-  // =========================
+  // =====================================================
 
   function getFavorites() {
 
     try {
 
-      return JSON.parse(
-        localStorage.getItem(
-          "smc_dl_favorites"
-        )
-      ) || [];
+      const data =
+        JSON.parse(
+          localStorage.getItem(
+            "smc_dl_favorites"
+          )
+        );
+
+
+      return Array.isArray(data)
+        ? data
+        : [];
+
 
     } catch {
 
@@ -447,10 +674,39 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  function updateFavoriteButton(
+    button,
+    id
+  ) {
+
+    if (isFavorite(id)) {
+
+      button.textContent =
+        "♥";
+
+      button.classList.add(
+        "active"
+      );
+
+    } else {
+
+      button.textContent =
+        "♡";
+
+      button.classList.remove(
+        "active"
+      );
+    }
+  }
+
+
   function toggleFavorite(
     id,
     button
   ) {
+
+    if (!id) return;
+
 
     const favorites =
       getFavorites();
@@ -464,25 +720,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       favorites.push(id);
 
-      button.textContent =
-        "♥";
-
-      button.classList.add(
-        "active"
-      );
-
     } else {
 
       favorites.splice(
         index,
         1
-      );
-
-      button.textContent =
-        "♡";
-
-      button.classList.remove(
-        "active"
       );
     }
 
@@ -490,44 +732,18 @@ document.addEventListener("DOMContentLoaded", () => {
     saveFavorites(
       favorites
     );
+
+
+    updateFavoriteButton(
+      button,
+      id
+    );
   }
 
 
-  // =========================
-  // ESCAPE HTML
-  // =========================
-
-  function escapeHTML(
-    value
-  ) {
-
-    return String(value)
-      .replaceAll(
-        "&",
-        "&amp;"
-      )
-      .replaceAll(
-        "<",
-        "&lt;"
-      )
-      .replaceAll(
-        ">",
-        "&gt;"
-      )
-      .replaceAll(
-        '"',
-        "&quot;"
-      )
-      .replaceAll(
-        "'",
-        "&#039;"
-      );
-  }
-
-
-  // =========================
+  // =====================================================
   // START
-  // =========================
+  // =====================================================
 
   loadAddons();
 
