@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
-  />
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <meta
     name="description"
-    content="SMC DL - Download Minecraft Mods, Addons, Maps, Shaders, Texture dan lainnya."
-  />
+    content="SMC DL - Minecraft Mods & Addons"
+  >
+
+  <meta
+    name="theme-color"
+    content="#020611"
+  >
 
   <title>SMC DL — Minecraft Mods & Addons</title>
 
-  <link rel="stylesheet" href="CSS/home.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="CSS/home.css">
 </head>
 
 <body>
@@ -22,18 +29,29 @@
   <!-- =========================
        BACKGROUND
   ========================== -->
+
   <div class="background-glow"></div>
   <div class="stars"></div>
+
 
   <!-- =========================
        TOP NAVBAR
   ========================== -->
+
   <header class="top-navbar">
 
     <a href="index.html" class="brand">
-      <span class="brand-main">SMC DL</span>
-      <span class="brand-sub">MINECRAFT MODS</span>
+
+      <span class="brand-main">
+        SMC DL
+      </span>
+
+      <span class="brand-sub">
+        MINECRAFT MODS
+      </span>
+
     </a>
+
 
     <button
       class="menu-button"
@@ -42,26 +60,49 @@
       aria-label="Buka menu"
       aria-expanded="false"
     >
+
       <span></span>
       <span></span>
       <span></span>
+
     </button>
 
   </header>
 
 
   <!-- =========================
+       MENU OVERLAY
+  ========================== -->
+
+  <div
+    class="menu-overlay"
+    id="menuOverlay"
+  ></div>
+
+
+  <!-- =========================
        SIDE MENU
   ========================== -->
-  <div class="menu-overlay" id="menuOverlay"></div>
 
-  <aside class="side-menu" id="sideMenu">
+  <aside
+    class="side-menu"
+    id="sideMenu"
+  >
 
     <div class="side-menu-header">
+
       <div>
-        <span class="menu-title">SMC DL</span>
-        <span class="menu-subtitle">MENU</span>
+
+        <span class="menu-title">
+          SMC DL
+        </span>
+
+        <span class="menu-subtitle">
+          MENU
+        </span>
+
       </div>
+
 
       <button
         class="close-menu"
@@ -71,33 +112,79 @@
       >
         ×
       </button>
+
     </div>
+
 
     <nav class="side-navigation">
 
-      <a href="index.html" class="side-link active">
+      <a
+        href="index.html"
+        class="side-link active"
+      >
+
         <span class="side-icon">⌂</span>
-        <span>Home</span>
+
+        <span>
+          Home
+        </span>
+
       </a>
 
-      <a href="addons.html" class="side-link">
+
+      <a
+        href="addons.html"
+        class="side-link"
+      >
+
         <span class="side-icon">◆</span>
-        <span>Addon</span>
+
+        <span>
+          Addon
+        </span>
+
       </a>
 
-      <a href="favorites.html" class="side-link">
+
+      <a
+        href="favorites.html"
+        class="side-link"
+      >
+
         <span class="side-icon">♡</span>
-        <span>Favorit</span>
+
+        <span>
+          Favorit
+        </span>
+
       </a>
 
-      <a href="categories.html" class="side-link">
+
+      <a
+        href="categories.html"
+        class="side-link"
+      >
+
         <span class="side-icon">▦</span>
-        <span>Kategori</span>
+
+        <span>
+          Kategori
+        </span>
+
       </a>
 
-      <a href="#dek-skripsi" class="side-link">
+
+      <a
+        href="#dek-skripsi"
+        class="side-link"
+      >
+
         <span class="side-icon">?</span>
-        <span>Dek Skripsi</span>
+
+        <span>
+          Dek Skripsi
+        </span>
+
       </a>
 
     </nav>
@@ -108,9 +195,14 @@
   <!-- =========================
        MAIN
   ========================== -->
+
   <main>
 
-    <!-- HERO -->
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
     <section class="hero">
 
       <div class="hero-content">
@@ -119,27 +211,38 @@
           MINECRAFT MODS & ADDONS
         </div>
 
+
         <h1 class="hero-title">
-          <span>SMC</span>
-          <strong>DL</strong>
+          SMC <strong>DL</strong>
         </h1>
 
+
         <p class="hero-description">
-          Temukan addon, mod, shader, texture, map dan berbagai
-          konten Minecraft favoritmu.
+          Temukan addon, mod, shader, texture,
+          map dan berbagai konten Minecraft
+          favoritmu.
         </p>
 
-        <!-- SEARCH -->
-        <form class="search-box" id="searchForm">
 
-          <span class="search-icon">⌕</span>
+        <!-- SEARCH -->
+
+        <form
+          class="search-box"
+          id="searchForm"
+        >
+
+          <span class="search-icon">
+            ⌕
+          </span>
+
 
           <input
             type="search"
             id="searchInput"
             placeholder="Cari addon, mod, shader..."
             autocomplete="off"
-          />
+          >
+
 
           <button type="submit">
             Cari
@@ -155,10 +258,18 @@
     <!-- =========================
          AD SPACE
     ========================== -->
-    <section class="ad-container" aria-label="Advertisement">
+
+    <section
+      class="ad-container"
+      aria-label="Advertisement"
+    >
 
       <div class="ad-placeholder">
-        <span>ADVERTISEMENT</span>
+
+        <span>
+          ADVERTISEMENT
+        </span>
+
       </div>
 
     </section>
@@ -167,35 +278,57 @@
     <!-- =========================
          REKOMENDASI
     ========================== -->
+
     <section class="content-section">
 
       <div class="section-heading">
 
         <div>
-          <span class="section-label">DISCOVER</span>
-          <h2>Rekomendasi Addon</h2>
+
+          <span class="section-label">
+            DISCOVER
+          </span>
+
+          <h2>
+            Rekomendasi Addon
+          </h2>
+
         </div>
 
-        <a href="addons.html" class="see-all">
+
+        <a
+          href="addons.html"
+          class="see-all"
+        >
           Lihat semua →
         </a>
 
       </div>
 
+
       <div
         class="addon-grid"
         id="recommendedAddons"
-      >
-        <!-- Data addon dari database akan masuk di sini -->
-      </div>
+      ></div>
+
 
       <div
-        class="empty-state"
+        class="empty-state visible"
         id="recommendedEmpty"
       >
-        <div class="empty-icon">◇</div>
-        <h3>Belum ada addon</h3>
-        <p>Addon rekomendasi akan muncul di sini.</p>
+
+        <div class="empty-icon">
+          ◇
+        </div>
+
+        <h3>
+          Belum ada addon
+        </h3>
+
+        <p>
+          Addon rekomendasi akan muncul di sini.
+        </p>
+
       </div>
 
     </section>
@@ -204,35 +337,58 @@
     <!-- =========================
          TERBARU
     ========================== -->
+
     <section class="content-section">
 
       <div class="section-heading">
 
         <div>
-          <span class="section-label">LATEST</span>
-          <h2>Addon Terbaru</h2>
+
+          <span class="section-label">
+            LATEST
+          </span>
+
+          <h2>
+            Addon Terbaru
+          </h2>
+
         </div>
 
-        <a href="addons.html" class="see-all">
+
+        <a
+          href="addons.html"
+          class="see-all"
+        >
           Lihat semua →
         </a>
 
       </div>
 
+
       <div
         class="addon-grid"
         id="latestAddons"
-      >
-        <!-- Data database -->
-      </div>
+      ></div>
+
 
       <div
-        class="empty-state"
+        class="empty-state visible"
         id="latestEmpty"
       >
-        <div class="empty-icon">◇</div>
-        <h3>Belum ada addon terbaru</h3>
-        <p>Addon yang baru ditambahkan akan muncul di sini.</p>
+
+        <div class="empty-icon">
+          ◇
+        </div>
+
+        <h3>
+          Belum ada addon terbaru
+        </h3>
+
+        <p>
+          Addon yang baru ditambahkan
+          akan muncul di sini.
+        </p>
+
       </div>
 
     </section>
@@ -241,84 +397,206 @@
     <!-- =========================
          RATING TERTINGGI
     ========================== -->
+
     <section class="content-section">
 
       <div class="section-heading">
 
         <div>
-          <span class="section-label">TOP RATED</span>
-          <h2>Rating Tertinggi</h2>
+
+          <span class="section-label">
+            TOP RATED
+          </span>
+
+          <h2>
+            Rating Tertinggi
+          </h2>
+
         </div>
 
-        <a href="addons.html?sort=rating" class="see-all">
+
+        <a
+          href="addons.html?sort=rating"
+          class="see-all"
+        >
           Lihat semua →
         </a>
 
       </div>
 
+
       <div
         class="addon-grid"
         id="topRatedAddons"
-      >
-        <!-- Data database -->
-      </div>
+      ></div>
+
 
       <div
-        class="empty-state"
+        class="empty-state visible"
         id="topRatedEmpty"
       >
-        <div class="empty-icon">☆</div>
-        <h3>Belum ada rating</h3>
-        <p>Addon dengan rating tertinggi akan muncul di sini.</p>
+
+        <div class="empty-icon">
+          ☆
+        </div>
+
+        <h3>
+          Belum ada rating
+        </h3>
+
+        <p>
+          Addon dengan rating tertinggi
+          akan muncul di sini.
+        </p>
+
       </div>
 
     </section>
 
 
     <!-- =========================
-         CATEGORIES
+         KATEGORI
     ========================== -->
+
     <section class="content-section category-section">
 
       <div class="section-heading">
 
         <div>
-          <span class="section-label">EXPLORE</span>
-          <h2>Kategori</h2>
+
+          <span class="section-label">
+            EXPLORE
+          </span>
+
+          <h2>
+            Kategori
+          </h2>
+
         </div>
 
       </div>
 
+
       <div class="category-grid">
 
-        <a href="addons.html?category=addon" class="category-card">
-          <span class="category-icon">◆</span>
-          <span>Addon</span>
+
+        <!-- ADDON -->
+
+        <a
+          href="addons.html?category=addon"
+          class="category-card"
+        >
+
+          <img
+            src="assets/icons/grass.webp"
+            alt="Addon"
+            loading="lazy"
+          >
+
+          <span>
+            Addon
+          </span>
+
         </a>
 
-        <a href="addons.html?category=mod" class="category-card">
-          <span class="category-icon">✦</span>
-          <span>Mod</span>
+
+        <!-- MOD -->
+
+        <a
+          href="addons.html?category=mod"
+          class="category-card"
+        >
+
+          <img
+            src="assets/icons/redstone.webp"
+            alt="Mod"
+            loading="lazy"
+          >
+
+          <span>
+            Mod
+          </span>
+
         </a>
 
-        <a href="addons.html?category=shader" class="category-card">
-          <span class="category-icon">◈</span>
-          <span>Shader</span>
+
+        <!-- SHADER -->
+
+        <a
+          href="addons.html?category=shader"
+          class="category-card"
+        >
+
+          <img
+            src="assets/icons/cloud.webp"
+            alt="Shader"
+            loading="lazy"
+          >
+
+          <span>
+            Shader
+          </span>
+
         </a>
 
-        <a href="addons.html?category=texture" class="category-card">
-          <span class="category-icon">▧</span>
-          <span>Texture</span>
+
+        <!-- TEXTURE -->
+
+        <a
+          href="addons.html?category=texture"
+          class="category-card"
+        >
+
+          <img
+            src="assets/icons/diamond-ore.webp"
+            alt="Texture"
+            loading="lazy"
+          >
+
+          <span>
+            Texture
+          </span>
+
         </a>
 
-        <a href="addons.html?category=map" class="category-card">
-          <span class="category-icon">⌖</span>
-          <span>Map</span>
+
+        <!-- MAP -->
+
+        <a
+          href="addons.html?category=map"
+          class="category-card"
+        >
+
+          <img
+            src="assets/icons/map.webp"
+            alt="Map"
+            loading="lazy"
+          >
+
+          <span>
+            Map
+          </span>
+
         </a>
 
-        <a href="addons.html?category=skin" class="category-card">
-          <span class="category-icon">♙</span>
-          <span>Skin</span>
+
+        <!-- SKIN -->
+
+        <a
+          href="addons.html?category=skin"
+          class="category-card"
+        >
+
+          <img
+            src="assets/icons/steve.webp"
+            alt="Skin"
+            loading="lazy"
+          >
+
+          <span>
+            Skin
+          </span>
+
         </a>
 
       </div>
@@ -329,35 +607,58 @@
     <!-- =========================
          POPULER
     ========================== -->
+
     <section class="content-section">
 
       <div class="section-heading">
 
         <div>
-          <span class="section-label">POPULAR</span>
-          <h2>Paling Banyak Didownload</h2>
+
+          <span class="section-label">
+            POPULAR
+          </span>
+
+          <h2>
+            Paling Banyak Didownload
+          </h2>
+
         </div>
 
-        <a href="addons.html?sort=downloads" class="see-all">
+
+        <a
+          href="addons.html?sort=downloads"
+          class="see-all"
+        >
           Lihat semua →
         </a>
 
       </div>
 
+
       <div
         class="addon-grid"
         id="popularAddons"
-      >
-        <!-- Data database -->
-      </div>
+      ></div>
+
 
       <div
-        class="empty-state"
+        class="empty-state visible"
         id="popularEmpty"
       >
-        <div class="empty-icon">↯</div>
-        <h3>Belum ada download</h3>
-        <p>Addon populer akan muncul setelah ada download.</p>
+
+        <div class="empty-icon">
+          ↯
+        </div>
+
+        <h3>
+          Belum ada download
+        </h3>
+
+        <p>
+          Addon populer akan muncul
+          setelah ada download.
+        </p>
+
       </div>
 
     </section>
@@ -366,6 +667,7 @@
     <!-- =========================
          DEK SKRIPSI
     ========================== -->
+
     <section
       class="dek-skripsi"
       id="dek-skripsi"
@@ -375,24 +677,39 @@
         ABOUT SMC DL
       </div>
 
-      <h2>Dek Skripsi</h2>
+
+      <h2>
+        Dek Skripsi
+      </h2>
+
 
       <p>
-        SMC DL adalah platform untuk menemukan berbagai
-        Minecraft addon, mod, shader, texture, map dan
-        konten Minecraft lainnya dengan mudah.
+        SMC DL adalah platform untuk
+        menemukan berbagai Minecraft
+        addon, mod, shader, texture,
+        map dan konten Minecraft lainnya
+        dengan mudah.
       </p>
 
+
       <p>
-        Semua konten akan dikelola melalui sistem database
-        sehingga addon terbaru dapat ditampilkan secara
+        Semua konten akan dikelola melalui
+        sistem database sehingga addon
+        terbaru dapat ditampilkan secara
         otomatis di website.
       </p>
 
+
       <div class="skripsi-signature">
+
         SMC DL
-        <span>•</span>
+
+        <span>
+          •
+        </span>
+
         Minecraft Mods & Addons
+
       </div>
 
     </section>
@@ -401,10 +718,15 @@
     <!-- =========================
          SECOND AD SPACE
     ========================== -->
+
     <section class="ad-container">
 
       <div class="ad-placeholder">
-        <span>ADVERTISEMENT</span>
+
+        <span>
+          ADVERTISEMENT
+        </span>
+
       </div>
 
     </section>
@@ -415,15 +737,18 @@
   <!-- =========================
        FOOTER
   ========================== -->
+
   <footer class="footer">
 
     <div class="footer-logo">
       SMC DL
     </div>
 
+
     <p>
       Minecraft Mods & Addons
     </p>
+
 
     <div class="footer-links">
 
@@ -445,6 +770,7 @@
 
     </div>
 
+
     <div class="footer-copy">
       © 2026 SMC DL
     </div>
@@ -455,48 +781,76 @@
   <!-- =========================
        BOTTOM NAVBAR
   ========================== -->
+
   <nav class="bottom-navbar">
+
 
     <a
       href="index.html"
       class="bottom-link active"
     >
-      <span class="bottom-icon">⌂</span>
-      <span>Home</span>
+
+      <span class="bottom-icon">
+        ⛏️
+      </span>
+
+      <span>
+        Home
+      </span>
+
     </a>
+
 
     <a
       href="addons.html"
       class="bottom-link"
     >
-      <span class="bottom-icon">◆</span>
-      <span>Addon</span>
+
+      <span class="bottom-icon">
+        🌱
+      </span>
+
+      <span>
+        Addon
+      </span>
+
     </a>
+
 
     <a
       href="favorites.html"
       class="bottom-link"
     >
-      <span class="bottom-icon heart-icon">♡</span>
-      <span>Favorit</span>
+
+      <span class="bottom-icon">
+        ❤️
+      </span>
+
+      <span>
+        Favorit
+      </span>
+
     </a>
+
 
     <button
       type="button"
       class="bottom-link bottom-menu-button"
       id="bottomMenuButton"
     >
-      <span class="bottom-icon">☰</span>
-      <span>Menu</span>
+
+      <span class="bottom-icon">
+        🧭
+      </span>
+
+      <span>
+        Menu
+      </span>
+
     </button>
 
   </nav>
 
-
-  <!-- =========================
-       JAVASCRIPT
-  ========================== -->
-  <script src="js/home.js"></script>
 
 </body>
 </html>
