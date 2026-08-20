@@ -7,7 +7,12 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   >
-<meta name="monetag" content="a90966899e8a2aeebda648d5d8c41a8f">
+
+  <meta
+    name="monetag"
+    content="a90966899e8a2aeebda648d5d8c41a8f"
+  >
+
   <meta
     name="description"
     content="SMC DL - Minecraft Mods & Addons"
@@ -20,11 +25,29 @@
 
   <title>SMC DL — Minecraft Mods & Addons</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="CSS/home.css">
+  <!-- =========================
+       SUPABASE
+  ========================== -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
+
+
+  <!-- =========================
+       CSS
+  ========================== -->
+
+  <link
+    rel="stylesheet"
+    href="CSS/home.css"
+  >
+
 </head>
 
+
 <body>
+
 
   <!-- =========================
        BACKGROUND
@@ -40,7 +63,10 @@
 
   <header class="top-navbar">
 
-    <a href="index.html" class="brand">
+    <a
+      href="index.html"
+      class="brand"
+    >
 
       <span class="brand-main">
         SMC DL
@@ -123,7 +149,9 @@
         class="side-link active"
       >
 
-        <span class="side-icon">⌂</span>
+        <span class="side-icon">
+          ⌂
+        </span>
 
         <span>
           Home
@@ -137,7 +165,9 @@
         class="side-link"
       >
 
-        <span class="side-icon">◆</span>
+        <span class="side-icon">
+          ◆
+        </span>
 
         <span>
           Addon
@@ -151,7 +181,9 @@
         class="side-link"
       >
 
-        <span class="side-icon">♡</span>
+        <span class="side-icon">
+          ♡
+        </span>
 
         <span>
           Favorit
@@ -165,7 +197,9 @@
         class="side-link"
       >
 
-        <span class="side-icon">▦</span>
+        <span class="side-icon">
+          ▦
+        </span>
 
         <span>
           Kategori
@@ -179,7 +213,9 @@
         class="side-link"
       >
 
-        <span class="side-icon">?</span>
+        <span class="side-icon">
+          ?
+        </span>
 
         <span>
           Dek Skripsi
@@ -206,6 +242,7 @@
     <section class="hero">
 
       <div class="hero-content">
+
 
         <div class="hero-badge">
           MINECRAFT MODS & ADDONS
@@ -256,7 +293,7 @@
 
 
     <!-- =========================
-         AD SPACE
+         ADVERTISEMENT
     ========================== -->
 
     <section
@@ -311,26 +348,6 @@
         id="recommendedAddons"
       ></div>
 
-
-      <div
-        class="empty-state visible"
-        id="recommendedEmpty"
-      >
-
-        <div class="empty-icon">
-          ◇
-        </div>
-
-        <h3>
-          Belum ada addon
-        </h3>
-
-        <p>
-          Addon rekomendasi akan muncul di sini.
-        </p>
-
-      </div>
-
     </section>
 
 
@@ -369,27 +386,6 @@
         class="addon-grid"
         id="latestAddons"
       ></div>
-
-
-      <div
-        class="empty-state visible"
-        id="latestEmpty"
-      >
-
-        <div class="empty-icon">
-          ◇
-        </div>
-
-        <h3>
-          Belum ada addon terbaru
-        </h3>
-
-        <p>
-          Addon yang baru ditambahkan
-          akan muncul di sini.
-        </p>
-
-      </div>
 
     </section>
 
@@ -430,27 +426,6 @@
         id="topRatedAddons"
       ></div>
 
-
-      <div
-        class="empty-state visible"
-        id="topRatedEmpty"
-      >
-
-        <div class="empty-icon">
-          ☆
-        </div>
-
-        <h3>
-          Belum ada rating
-        </h3>
-
-        <p>
-          Addon dengan rating tertinggi
-          akan muncul di sini.
-        </p>
-
-      </div>
-
     </section>
 
 
@@ -458,7 +433,9 @@
          KATEGORI
     ========================== -->
 
-    <section class="content-section category-section">
+    <section
+      class="content-section category-section"
+    >
 
       <div class="section-heading">
 
@@ -480,8 +457,6 @@
       <div class="category-grid">
 
 
-        <!-- ADDON -->
-
         <a
           href="addons.html?category=addon"
           class="category-card"
@@ -499,8 +474,6 @@
 
         </a>
 
-
-        <!-- MOD -->
 
         <a
           href="addons.html?category=mod"
@@ -520,8 +493,6 @@
         </a>
 
 
-        <!-- SHADER -->
-
         <a
           href="addons.html?category=shader"
           class="category-card"
@@ -539,8 +510,6 @@
 
         </a>
 
-
-        <!-- TEXTURE -->
 
         <a
           href="addons.html?category=texture"
@@ -560,8 +529,6 @@
         </a>
 
 
-        <!-- MAP -->
-
         <a
           href="addons.html?category=map"
           class="category-card"
@@ -579,8 +546,6 @@
 
         </a>
 
-
-        <!-- SKIN -->
 
         <a
           href="addons.html?category=skin"
@@ -640,27 +605,6 @@
         id="popularAddons"
       ></div>
 
-
-      <div
-        class="empty-state visible"
-        id="popularEmpty"
-      >
-
-        <div class="empty-icon">
-          ↯
-        </div>
-
-        <h3>
-          Belum ada download
-        </h3>
-
-        <p>
-          Addon populer akan muncul
-          setelah ada download.
-        </p>
-
-      </div>
-
     </section>
 
 
@@ -693,7 +637,7 @@
 
 
       <p>
-        Semua konten akan dikelola melalui
+        Semua konten dikelola melalui
         sistem database sehingga addon
         terbaru dapat ditampilkan secara
         otomatis di website.
@@ -716,7 +660,7 @@
 
 
     <!-- =========================
-         SECOND AD SPACE
+         SECOND ADVERTISEMENT
     ========================== -->
 
     <section class="ad-container">
@@ -782,45 +726,90 @@
        BOTTOM NAVBAR
   ========================== -->
 
- <nav class="bottom-navbar">
+  <nav class="bottom-navbar">
 
-  <a href="index.html" class="bottom-link active">
-    <img
-      src="assets/icons/home.webp"
-      alt="Home"
-      class="bottom-icon"
+    <a
+      href="index.html"
+      class="bottom-link active"
     >
-    <span>Home</span>
-  </a>
 
-  <a href="addons.html" class="bottom-link">
-    <img
-      src="assets/icons/search.webp"
-      alt="Addon"
-      class="bottom-icon"
+      <img
+        src="assets/icons/home.webp"
+        alt="Home"
+        class="bottom-icon"
+      >
+
+      <span>
+        Home
+      </span>
+
+    </a>
+
+
+    <a
+      href="addons.html"
+      class="bottom-link"
     >
-    <span>Addon</span>
-  </a>
 
-  <a href="favorites.html" class="bottom-link">
-    <img
-      src="assets/icons/favorite.webp"
-      alt="Favorit"
-      class="bottom-icon"
+      <img
+        src="assets/icons/search.webp"
+        alt="Addon"
+        class="bottom-icon"
+      >
+
+      <span>
+        Addon
+      </span>
+
+    </a>
+
+
+    <a
+      href="favorites.html"
+      class="bottom-link"
     >
-    <span>Favorit</span>
-  </a>
 
-  <a href="menu.html" class="bottom-link">
-    <img
-      src="assets/icons/menu.webp"
-      alt="Menu"
-      class="bottom-icon"
+      <img
+        src="assets/icons/favorite.webp"
+        alt="Favorit"
+        class="bottom-icon"
+      >
+
+      <span>
+        Favorit
+      </span>
+
+    </a>
+
+
+    <a
+      href="menu.html"
+      class="bottom-link"
     >
-    <span>Menu</span>
-  </a>
 
- </nav>
+      <img
+        src="assets/icons/menu.webp"
+        alt="Menu"
+        class="bottom-icon"
+      >
+
+      <span>
+        Menu
+      </span>
+
+    </a>
+
+  </nav>
+
+
+  <!-- =========================
+       SUPABASE + HOME SCRIPT
+  ========================== -->
+
+  <script
+    type="module"
+    src="JS/home.js"
+  ></script>
 
 </body>
 </html>
