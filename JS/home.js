@@ -2,7 +2,7 @@
    SMC DL
    HOME.JS
    Supabase Homepage
-   FINAL
+   FINAL + DASHBOARD
    ========================================================= */
 
 
@@ -14,7 +14,7 @@ const SUPABASE_URL =
   "https://rtwljeoxxhlfortcputj.supabase.co";
 
 const SUPABASE_ANON_KEY =
-   "sb_publishable_stZa8kHgp-sokGGLRQIfrA_dM9ec8x-";
+  "sb_publishable_stZa8kHgp-sokGGLRQIfrA_dM9ec8x-";
 
 
 const supabaseClient =
@@ -51,6 +51,26 @@ const searchForm =
 const searchInput =
   document.getElementById(
     "searchInput"
+  );
+
+
+/* =========================================================
+   DASHBOARD DOM
+   ========================================================= */
+
+const totalUploadsElement =
+  document.getElementById(
+    "totalUploads"
+  );
+
+const totalViewsElement =
+  document.getElementById(
+    "totalViews"
+  );
+
+const mediafirePercentElement =
+  document.getElementById(
+    "mediafirePercent"
   );
 
 
@@ -181,6 +201,123 @@ homeCardStyle.textContent = `
 
     object-fit:
       cover;
+
+  }
+
+
+  /* =====================================================
+     DASHBOARD ANIMATION
+  ===================================================== */
+
+  .home-dashboard {
+
+    animation:
+      dashboardAppear
+      .7s
+      ease
+      both;
+
+  }
+
+
+  .dashboard-card {
+
+    position:
+      relative;
+
+    overflow:
+      hidden;
+
+  }
+
+
+  .dashboard-card::after {
+
+    content:
+      "";
+
+    position:
+      absolute;
+
+    top:
+      -100%;
+
+    left:
+      -80%;
+
+    width:
+      60%;
+
+    height:
+      300%;
+
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.10),
+        transparent
+      );
+
+    transform:
+      rotate(25deg);
+
+    animation:
+      dashboardShine
+      4s
+      ease-in-out
+      infinite;
+
+    pointer-events:
+      none;
+
+  }
+
+
+  @keyframes dashboardAppear {
+
+    from {
+
+      opacity:
+        0;
+
+      transform:
+        translateY(15px)
+        scale(.97);
+
+    }
+
+    to {
+
+      opacity:
+        1;
+
+      transform:
+        translateY(0)
+        scale(1);
+
+    }
+
+  }
+
+
+  @keyframes dashboardShine {
+
+    0%,
+    55% {
+
+      left:
+        -100%;
+
+    }
+
+    75%,
+    100% {
+
+      left:
+        160%;
+
+    }
 
   }
 
@@ -372,12 +509,6 @@ function formatCategory(value) {
 function createAddonCard(addon) {
 
 
-  /*
-   * ID OTOMATIS DARI DATABASE
-   *
-   * Setiap addon punya ID berbeda.
-   */
-
   const id =
     encodeURIComponent(
       addon.id
@@ -449,11 +580,9 @@ function createAddonCard(addon) {
 
 
   /*
-   * CARD SELALU MENGARAH KE:
+   * ID OTOMATIS DARI DATABASE
    *
-   * download.html?id=ID_ADDON
-   *
-   * ID otomatis mengikuti addon yang diklik.
+   * Setiap addon punya ID berbeda.
    */
 
   const detailURL =
@@ -471,9 +600,6 @@ function createAddonCard(addon) {
         href="${detailURL}"
         class="addon-card-link"
       >
-
-
-        <!-- IMAGE -->
 
         <div
           class="addon-image-wrapper"
@@ -494,14 +620,9 @@ function createAddonCard(addon) {
         </div>
 
 
-        <!-- CONTENT -->
-
         <div
           class="addon-card-content"
         >
-
-
-          <!-- CATEGORY -->
 
           <span
             class="addon-category"
@@ -512,8 +633,6 @@ function createAddonCard(addon) {
           </span>
 
 
-          <!-- TITLE -->
-
           <h3
             class="addon-title"
           >
@@ -523,8 +642,6 @@ function createAddonCard(addon) {
           </h3>
 
 
-          <!-- DESCRIPTION -->
-
           <p
             class="addon-description"
           >
@@ -533,8 +650,6 @@ function createAddonCard(addon) {
 
           </p>
 
-
-          <!-- META -->
 
           <div
             class="addon-meta"
@@ -583,8 +698,6 @@ function createAddonCard(addon) {
 
           </div>
 
-
-          <!-- AUTHOR -->
 
           ${
             author
@@ -742,7 +855,207 @@ const addonColumns = `
 
 
 /* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+async function loadDashboardStats() {
+
+  if (
+    !totalUploadsElement &&
+    !totalViewsElement &&
+    !mediafirePercentElement
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+
+        .from("addons")
+
+        .select(
+          "download_url, view_count"
+        )
+
+        .eq(
+          "status",
+          "published"
+        );
+
+
+    if (error) {
+
+      throw error;
+
+    }
+
+
+    const addons =
+      data || [];
+
+
+    /* =========================================
+       TOTAL UPLOADS
+    ========================================= */
+
+    const totalUploads =
+      addons.length;
+
+
+    if (totalUploadsElement) {
+
+      totalUploadsElement.textContent =
+        totalUploads.toLocaleString(
+          "id-ID"
+        );
+
+    }
+
+
+    /* =========================================
+       TOTAL VIEWS
+    ========================================= */
+
+    const totalViews =
+      addons.reduce(
+        function (
+          total,
+          addon
+        ) {
+
+          return (
+            total +
+            (
+              Number(
+                addon.view_count
+              ) || 0
+            )
+          );
+
+        },
+        0
+      );
+
+
+    if (totalViewsElement) {
+
+      totalViewsElement.textContent =
+        totalViews.toLocaleString(
+          "id-ID"
+        );
+
+    }
+
+
+    /* =========================================
+       MEDIAFIRE PERCENTAGE
+    ========================================= */
+
+    const mediafireCount =
+      addons.filter(
+        function (addon) {
+
+          const url =
+            String(
+              addon.download_url ||
+              ""
+            ).toLowerCase();
+
+
+          return url.includes(
+            "mediafire.com"
+          );
+
+        }
+      ).length;
+
+
+    let mediafirePercent = 100;
+
+
+    if (addons.length > 0) {
+
+      mediafirePercent =
+        Math.round(
+          (
+            mediafireCount /
+            addons.length
+          ) * 100
+        );
+
+    }
+
+
+    if (mediafirePercentElement) {
+
+      mediafirePercentElement.textContent =
+        `${mediafirePercent}%`;
+
+    }
+
+
+    console.log(
+      "[SMC DL] Dashboard:",
+      {
+        totalUploads,
+        totalViews,
+        mediafirePercent
+      }
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "[SMC DL] Dashboard error:",
+      error
+    );
+
+
+    /*
+     * Jangan bikin halaman rusak
+     * kalau statistik gagal.
+     */
+
+    if (totalUploadsElement) {
+
+      totalUploadsElement.textContent =
+        "0";
+
+    }
+
+
+    if (totalViewsElement) {
+
+      totalViewsElement.textContent =
+        "0";
+
+    }
+
+
+    if (mediafirePercentElement) {
+
+      mediafirePercentElement.textContent =
+        "100%";
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
    RECOMMENDED
+   featured = true
    ========================================================= */
 
 async function loadRecommended() {
@@ -893,7 +1206,7 @@ async function loadLatest() {
 
 
 /* =========================================================
-   POPULAR / TOP DOWNLOAD
+   POPULAR
    ========================================================= */
 
 async function loadPopular() {
@@ -1388,6 +1701,8 @@ async function loadHome() {
 
 
   await Promise.all([
+
+    loadDashboardStats(),
 
     loadRecommended(),
 
