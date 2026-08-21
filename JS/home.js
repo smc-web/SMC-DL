@@ -1256,19 +1256,41 @@ document.addEventListener(
 
 async function loadHome() {
 
-  if (
-    !SUPABASE_URL ||
-    SUPABASE_URL ===
-      "https://rtwljeoxxhlfortcputj.supabase.co"
-  ) {
-
+  if (!SUPABASE_URL) {
     console.error(
       "[SMC DL] Supabase URL belum diisi."
     );
-
     return;
   }
 
+  if (!SUPABASE_ANON_KEY) {
+    console.error(
+      "[SMC DL] Supabase anon key belum diisi."
+    );
+    return;
+  }
 
-  if (
-    !
+  await Promise.all([
+    loadRecommended(),
+    loadLatest(),
+    loadPopular()
+  ]);
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+loadHome();
+
+
+/* =========================================================
+   GLOBAL ACCESS
+   ========================================================= */
+
+window.smcIncrementView =
+  incrementViewCount;
+
+window.smcIncrementDownload =
+  incrementDownloadCount;
