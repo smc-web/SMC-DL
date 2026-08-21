@@ -2,7 +2,7 @@
    SMC DL
    HOME.JS
    Supabase Homepage
-   FINAL VERSION
+   FINAL
    ========================================================= */
 
 
@@ -10,9 +10,11 @@
    SUPABASE CONFIG
    ========================================================= */
 
-const SUPABASE_URL = "https://rtwljeoxxhlfortcputj.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_stZa8kHgp-sokGGLRQIfrA_dM9ec8x-";
+const SUPABASE_URL =
+  "https://rtwljeoxxhlfortcputj.supabase.co";
 
+const SUPABASE_ANON_KEY =
+   "sb_publishable_stZa8kHgp-sokGGLRQIfrA_dM9ec8x-";
 
 
 const supabaseClient =
@@ -60,17 +62,14 @@ const MAX_HOME_ITEMS = 5;
 
 
 /* =========================================================
-   HORIZONTAL CARD STYLE
+   HORIZONTAL SCROLL STYLE
    ========================================================= */
 
 const homeCardStyle =
   document.createElement("style");
 
-homeCardStyle.textContent = `
 
-  /* ================================
-     HOME ADDON HORIZONTAL SCROLL
-  ================================= */
+homeCardStyle.textContent = `
 
   .addon-grid {
 
@@ -101,15 +100,19 @@ homeCardStyle.textContent = `
 
 
   .addon-grid::-webkit-scrollbar {
+
     height: 5px;
+
   }
 
 
   .addon-grid::-webkit-scrollbar-track {
+
     background:
       rgba(10, 30, 55, .35);
 
     border-radius: 10px;
+
   }
 
 
@@ -126,8 +129,7 @@ homeCardStyle.textContent = `
   .addon-grid .addon-card {
 
     flex:
-      0 0
-      205px;
+      0 0 205px;
 
     width:
       205px;
@@ -145,6 +147,9 @@ homeCardStyle.textContent = `
 
     width:
       100%;
+
+    text-decoration:
+      none;
 
   }
 
@@ -180,10 +185,6 @@ homeCardStyle.textContent = `
   }
 
 
-  /* ================================
-     MOBILE
-  ================================= */
-
   @media (max-width: 600px) {
 
     .addon-grid {
@@ -200,8 +201,7 @@ homeCardStyle.textContent = `
     .addon-grid .addon-card {
 
       flex:
-        0 0
-        175px;
+        0 0 175px;
 
       width:
         175px;
@@ -214,17 +214,12 @@ homeCardStyle.textContent = `
   }
 
 
-  /* ================================
-     VERY SMALL PHONE
-  ================================= */
-
   @media (max-width: 380px) {
 
     .addon-grid .addon-card {
 
       flex:
-        0 0
-        160px;
+        0 0 160px;
 
       width:
         160px;
@@ -237,6 +232,7 @@ homeCardStyle.textContent = `
   }
 
 `;
+
 
 document.head.appendChild(
   homeCardStyle
@@ -253,35 +249,44 @@ function escapeHTML(value) {
     value === null ||
     value === undefined
   ) {
+
     return "";
+
   }
 
+
   return String(value)
+
     .replace(
       /&/g,
       "&amp;"
     )
+
     .replace(
       /</g,
       "&lt;"
     )
+
     .replace(
       />/g,
       "&gt;"
     )
+
     .replace(
       /"/g,
       "&quot;"
     )
+
     .replace(
       /'/g,
       "&#039;"
     );
+
 }
 
 
 /* =========================================================
-   FORMAT DOWNLOAD
+   FORMAT DOWNLOADS
    ========================================================= */
 
 function formatDownloads(value) {
@@ -313,6 +318,7 @@ function formatDownloads(value) {
 
 
   return number.toString();
+
 }
 
 
@@ -323,10 +329,14 @@ function formatDownloads(value) {
 function formatFileSize(value) {
 
   if (!value) {
+
     return "";
+
   }
 
+
   return String(value);
+
 }
 
 
@@ -337,7 +347,9 @@ function formatFileSize(value) {
 function formatCategory(value) {
 
   if (!value) {
+
     return "Minecraft";
+
   }
 
 
@@ -349,6 +361,7 @@ function formatCategory(value) {
     text.charAt(0).toUpperCase() +
     text.slice(1)
   );
+
 }
 
 
@@ -358,15 +371,16 @@ function formatCategory(value) {
 
 function createAddonCard(addon) {
 
+
+  /*
+   * ID OTOMATIS DARI DATABASE
+   *
+   * Setiap addon punya ID berbeda.
+   */
+
   const id =
     encodeURIComponent(
       addon.id
-    );
-
-
-  const slug =
-    encodeURIComponent(
-      addon.slug || ""
     );
 
 
@@ -435,16 +449,15 @@ function createAddonCard(addon) {
 
 
   /*
-   * TUJUAN CARD
+   * CARD SELALU MENGARAH KE:
    *
-   * Tetap menggunakan addon.html
-   * seperti versi sebelumnya.
+   * download.html?id=ID_ADDON
+   *
+   * ID otomatis mengikuti addon yang diklik.
    */
 
-  const detailValue =
-    addon.slug
-      ? `slug=${slug}`
-      : `id=${id}`;
+  const detailURL =
+    `download.html?id=${id}`;
 
 
   return `
@@ -455,14 +468,16 @@ function createAddonCard(addon) {
     >
 
       <a
-        href="addon.html?${detailValue}"
+        href="${detailURL}"
         class="addon-card-link"
       >
 
 
         <!-- IMAGE -->
 
-        <div class="addon-image-wrapper">
+        <div
+          class="addon-image-wrapper"
+        >
 
           <img
             src="${image}"
@@ -491,7 +506,9 @@ function createAddonCard(addon) {
           <span
             class="addon-category"
           >
+
             ${category}
+
           </span>
 
 
@@ -500,7 +517,9 @@ function createAddonCard(addon) {
           <h3
             class="addon-title"
           >
+
             ${name}
+
           </h3>
 
 
@@ -509,7 +528,9 @@ function createAddonCard(addon) {
           <p
             class="addon-description"
           >
+
             ${description}
+
           </p>
 
 
@@ -555,7 +576,9 @@ function createAddonCard(addon) {
             <span
               class="addon-downloads"
             >
+
               ↓ ${downloads}
+
             </span>
 
           </div>
@@ -569,7 +592,9 @@ function createAddonCard(addon) {
                 <div
                   class="addon-author"
                 >
+
                   ${author}
+
                 </div>
               `
               : ""
@@ -583,11 +608,12 @@ function createAddonCard(addon) {
     </article>
 
   `;
+
 }
 
 
 /* =========================================================
-   RENDER
+   RENDER ADDONS
    ========================================================= */
 
 function renderAddons(
@@ -596,7 +622,9 @@ function renderAddons(
 ) {
 
   if (!container) {
+
     return;
+
   }
 
 
@@ -605,23 +633,27 @@ function renderAddons(
     addons.length === 0
   ) {
 
-    container.innerHTML =
-      "";
+    container.innerHTML = "";
 
     return;
+
   }
 
 
   container.innerHTML =
     addons
+
       .slice(
         0,
         MAX_HOME_ITEMS
       )
+
       .map(
         createAddonCard
       )
+
       .join("");
+
 }
 
 
@@ -634,7 +666,9 @@ function showLoading(
 ) {
 
   if (!container) {
+
     return;
+
   }
 
 
@@ -647,6 +681,7 @@ function showLoading(
     </div>
 
   `;
+
 }
 
 
@@ -660,7 +695,9 @@ function showError(
 ) {
 
   if (!container) {
+
     return;
+
   }
 
 
@@ -673,6 +710,7 @@ function showError(
     </div>
 
   `;
+
 }
 
 
@@ -705,13 +743,14 @@ const addonColumns = `
 
 /* =========================================================
    RECOMMENDED
-   featured = true
    ========================================================= */
 
 async function loadRecommended() {
 
   if (!recommendedAddons) {
+
     return;
+
   }
 
 
@@ -725,22 +764,30 @@ async function loadRecommended() {
     error
   } =
     await supabaseClient
+
       .from("addons")
-      .select(addonColumns)
+
+      .select(
+        addonColumns
+      )
+
       .eq(
         "status",
         "published"
       )
+
       .eq(
         "featured",
         true
       )
+
       .order(
         "created_at",
         {
           ascending: false
         }
       )
+
       .limit(
         MAX_HOME_ITEMS
       );
@@ -760,6 +807,7 @@ async function loadRecommended() {
     );
 
     return;
+
   }
 
 
@@ -767,6 +815,7 @@ async function loadRecommended() {
     recommendedAddons,
     data
   );
+
 }
 
 
@@ -777,7 +826,9 @@ async function loadRecommended() {
 async function loadLatest() {
 
   if (!latestAddons) {
+
     return;
+
   }
 
 
@@ -791,18 +842,25 @@ async function loadLatest() {
     error
   } =
     await supabaseClient
+
       .from("addons")
-      .select(addonColumns)
+
+      .select(
+        addonColumns
+      )
+
       .eq(
         "status",
         "published"
       )
+
       .order(
         "created_at",
         {
           ascending: false
         }
       )
+
       .limit(
         MAX_HOME_ITEMS
       );
@@ -822,6 +880,7 @@ async function loadLatest() {
     );
 
     return;
+
   }
 
 
@@ -829,18 +888,20 @@ async function loadLatest() {
     latestAddons,
     data
   );
+
 }
 
 
 /* =========================================================
-   POPULAR
-   download_count DESC
+   POPULAR / TOP DOWNLOAD
    ========================================================= */
 
 async function loadPopular() {
 
   if (!popularAddons) {
+
     return;
+
   }
 
 
@@ -854,18 +915,25 @@ async function loadPopular() {
     error
   } =
     await supabaseClient
+
       .from("addons")
-      .select(addonColumns)
+
+      .select(
+        addonColumns
+      )
+
       .eq(
         "status",
         "published"
       )
+
       .order(
         "download_count",
         {
           ascending: false
         }
       )
+
       .limit(
         MAX_HOME_ITEMS
       );
@@ -885,6 +953,7 @@ async function loadPopular() {
     );
 
     return;
+
   }
 
 
@@ -892,6 +961,7 @@ async function loadPopular() {
     popularAddons,
     data
   );
+
 }
 
 
@@ -904,7 +974,9 @@ async function incrementViewCount(
 ) {
 
   if (!addonId) {
+
     return;
+
   }
 
 
@@ -915,14 +987,18 @@ async function incrementViewCount(
       error: fetchError
     } =
       await supabaseClient
+
         .from("addons")
+
         .select(
           "view_count"
         )
+
         .eq(
           "id",
           addonId
         )
+
         .single();
 
 
@@ -934,6 +1010,7 @@ async function incrementViewCount(
       );
 
       return;
+
     }
 
 
@@ -947,11 +1024,16 @@ async function incrementViewCount(
       error: updateError
     } =
       await supabaseClient
+
         .from("addons")
+
         .update({
+
           view_count:
             currentViews + 1
+
         })
+
         .eq(
           "id",
           addonId
@@ -975,6 +1057,7 @@ async function incrementViewCount(
     );
 
   }
+
 }
 
 
@@ -987,7 +1070,9 @@ async function incrementDownloadCount(
 ) {
 
   if (!addonId) {
+
     return;
+
   }
 
 
@@ -998,14 +1083,18 @@ async function incrementDownloadCount(
       error: fetchError
     } =
       await supabaseClient
+
         .from("addons")
+
         .select(
           "download_count"
         )
+
         .eq(
           "id",
           addonId
         )
+
         .single();
 
 
@@ -1017,6 +1106,7 @@ async function incrementDownloadCount(
       );
 
       return;
+
     }
 
 
@@ -1030,11 +1120,16 @@ async function incrementDownloadCount(
       error: updateError
     } =
       await supabaseClient
+
         .from("addons")
+
         .update({
+
           download_count:
             currentDownloads + 1
+
         })
+
         .eq(
           "id",
           addonId
@@ -1058,6 +1153,7 @@ async function incrementDownloadCount(
     );
 
   }
+
 }
 
 
@@ -1084,10 +1180,13 @@ if (searchForm) {
       if (!query) {
 
         if (searchInput) {
+
           searchInput.focus();
+
         }
 
         return;
+
       }
 
 
@@ -1160,8 +1259,13 @@ function openMenu() {
   document.body.classList.add(
     "menu-open"
   );
+
 }
 
+
+/* =========================================================
+   CLOSE MENU
+   ========================================================= */
 
 function closeSideMenu() {
 
@@ -1196,8 +1300,13 @@ function closeSideMenu() {
   document.body.classList.remove(
     "menu-open"
   );
+
 }
 
+
+/* =========================================================
+   MENU EVENTS
+   ========================================================= */
 
 if (menuButton) {
 
@@ -1230,7 +1339,7 @@ if (menuOverlay) {
 
 
 /* =========================================================
-   ESC
+   ESC TO CLOSE MENU
    ========================================================= */
 
 document.addEventListener(
@@ -1257,24 +1366,37 @@ document.addEventListener(
 async function loadHome() {
 
   if (!SUPABASE_URL) {
+
     console.error(
       "[SMC DL] Supabase URL belum diisi."
     );
+
     return;
+
   }
 
+
   if (!SUPABASE_ANON_KEY) {
+
     console.error(
       "[SMC DL] Supabase anon key belum diisi."
     );
+
     return;
+
   }
 
+
   await Promise.all([
+
     loadRecommended(),
+
     loadLatest(),
+
     loadPopular()
+
   ]);
+
 }
 
 
@@ -1291,6 +1413,7 @@ loadHome();
 
 window.smcIncrementView =
   incrementViewCount;
+
 
 window.smcIncrementDownload =
   incrementDownloadCount;
