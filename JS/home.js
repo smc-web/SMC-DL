@@ -2,6 +2,7 @@
    SMC DL
    HOME.JS
    Supabase Homepage
+   FINAL VERSION
    ========================================================= */
 
 
@@ -11,6 +12,7 @@
 
 const SUPABASE_URL = "https://rtwljeoxxhlfortcputj.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_stZa8kHgp-sokGGLRQIfrA_dM9ec8x-";
+
 
 
 const supabaseClient =
@@ -54,7 +56,191 @@ const searchInput =
    CONFIG
    ========================================================= */
 
-const MAX_HOME_ITEMS = 6;
+const MAX_HOME_ITEMS = 5;
+
+
+/* =========================================================
+   HORIZONTAL CARD STYLE
+   ========================================================= */
+
+const homeCardStyle =
+  document.createElement("style");
+
+homeCardStyle.textContent = `
+
+  /* ================================
+     HOME ADDON HORIZONTAL SCROLL
+  ================================= */
+
+  .addon-grid {
+
+    display: flex !important;
+
+    flex-direction: row !important;
+
+    flex-wrap: nowrap !important;
+
+    gap: 12px;
+
+    overflow-x: auto;
+
+    overflow-y: hidden;
+
+    padding:
+      4px
+      2px
+      12px;
+
+    scroll-behavior: smooth;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+
+  }
+
+
+  .addon-grid::-webkit-scrollbar {
+    height: 5px;
+  }
+
+
+  .addon-grid::-webkit-scrollbar-track {
+    background:
+      rgba(10, 30, 55, .35);
+
+    border-radius: 10px;
+  }
+
+
+  .addon-grid::-webkit-scrollbar-thumb {
+
+    background:
+      rgba(40, 155, 255, .45);
+
+    border-radius: 10px;
+
+  }
+
+
+  .addon-grid .addon-card {
+
+    flex:
+      0 0
+      205px;
+
+    width:
+      205px;
+
+    min-width:
+      205px;
+
+  }
+
+
+  .addon-grid .addon-card-link {
+
+    display:
+      block;
+
+    width:
+      100%;
+
+  }
+
+
+  .addon-grid .addon-image-wrapper {
+
+    width:
+      100%;
+
+    aspect-ratio:
+      16 / 9;
+
+    overflow:
+      hidden;
+
+  }
+
+
+  .addon-grid .addon-image {
+
+    width:
+      100%;
+
+    height:
+      100%;
+
+    display:
+      block;
+
+    object-fit:
+      cover;
+
+  }
+
+
+  /* ================================
+     MOBILE
+  ================================= */
+
+  @media (max-width: 600px) {
+
+    .addon-grid {
+
+      gap:
+        9px;
+
+      padding-bottom:
+        10px;
+
+    }
+
+
+    .addon-grid .addon-card {
+
+      flex:
+        0 0
+        175px;
+
+      width:
+        175px;
+
+      min-width:
+        175px;
+
+    }
+
+  }
+
+
+  /* ================================
+     VERY SMALL PHONE
+  ================================= */
+
+  @media (max-width: 380px) {
+
+    .addon-grid .addon-card {
+
+      flex:
+        0 0
+        160px;
+
+      width:
+        160px;
+
+      min-width:
+        160px;
+
+    }
+
+  }
+
+`;
+
+document.head.appendChild(
+  homeCardStyle
+);
 
 
 /* =========================================================
@@ -71,39 +257,93 @@ function escapeHTML(value) {
   }
 
   return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 }
 
+
+/* =========================================================
+   FORMAT DOWNLOAD
+   ========================================================= */
 
 function formatDownloads(value) {
 
   const number =
     Number(value) || 0;
 
-  if (number >= 1000000) {
-    return `${(number / 1000000).toFixed(1)}M`;
+
+  if (
+    number >= 1000000
+  ) {
+
+    return (
+      number / 1000000
+    ).toFixed(1) + "M";
+
   }
 
-  if (number >= 1000) {
-    return `${(number / 1000).toFixed(1)}K`;
+
+  if (
+    number >= 1000
+  ) {
+
+    return (
+      number / 1000
+    ).toFixed(1) + "K";
+
   }
+
 
   return number.toString();
 }
 
 
+/* =========================================================
+   FORMAT FILE SIZE
+   ========================================================= */
+
+function formatFileSize(value) {
+
+  if (!value) {
+    return "";
+  }
+
+  return String(value);
+}
+
+
+/* =========================================================
+   FORMAT CATEGORY
+   ========================================================= */
+
 function formatCategory(value) {
 
   if (!value) {
-    return "Addon";
+    return "Minecraft";
   }
+
 
   const text =
     String(value);
+
 
   return (
     text.charAt(0).toUpperCase() +
@@ -113,7 +353,7 @@ function formatCategory(value) {
 
 
 /* =========================================================
-   ADDON CARD
+   CREATE ADDON CARD
    ========================================================= */
 
 function createAddonCard(addon) {
@@ -121,6 +361,12 @@ function createAddonCard(addon) {
   const id =
     encodeURIComponent(
       addon.id
+    );
+
+
+  const slug =
+    encodeURIComponent(
+      addon.slug || ""
     );
 
 
@@ -169,8 +415,9 @@ function createAddonCard(addon) {
 
   const fileSize =
     escapeHTML(
-      addon.file_size ||
-      ""
+      formatFileSize(
+        addon.file_size
+      )
     );
 
 
@@ -188,16 +435,16 @@ function createAddonCard(addon) {
 
 
   /*
-   * CARD SELALU MENUJU
+   * TUJUAN CARD
    *
-   * download.html?id=ID_ADDON
-   *
-   * Tidak menggunakan slug supaya
-   * sama dengan sistem addon page.
+   * Tetap menggunakan addon.html
+   * seperti versi sebelumnya.
    */
 
-  const detailURL =
-    `download.html?id=${id}`;
+  const detailValue =
+    addon.slug
+      ? `slug=${slug}`
+      : `id=${id}`;
 
 
   return `
@@ -208,62 +455,69 @@ function createAddonCard(addon) {
     >
 
       <a
-        href="${detailURL}"
+        href="addon.html?${detailValue}"
         class="addon-card-link"
       >
 
-        <!-- FOTO -->
 
-        <div class="addon-thumbnail">
+        <!-- IMAGE -->
+
+        <div class="addon-image-wrapper">
 
           <img
             src="${image}"
             alt="${name}"
             class="addon-image"
             loading="lazy"
+
             onerror="
               this.onerror=null;
               this.src='assets/icons/grass.webp';
             "
           >
 
-
-          <!-- CATEGORY -->
-
-          <span class="addon-category">
-
-            ${category}
-
-          </span>
-
         </div>
 
 
-        <!-- INFO -->
+        <!-- CONTENT -->
 
-        <div class="addon-info">
+        <div
+          class="addon-card-content"
+        >
+
+
+          <!-- CATEGORY -->
+
+          <span
+            class="addon-category"
+          >
+            ${category}
+          </span>
+
 
           <!-- TITLE -->
 
-          <h3 class="addon-title">
-
+          <h3
+            class="addon-title"
+          >
             ${name}
-
           </h3>
 
 
           <!-- DESCRIPTION -->
 
-          <p class="addon-description">
-
+          <p
+            class="addon-description"
+          >
             ${description}
-
           </p>
 
 
           <!-- META -->
 
-          <div class="addon-meta">
+          <div
+            class="addon-meta"
+          >
 
             ${
               minecraftVersion
@@ -298,26 +552,29 @@ function createAddonCard(addon) {
             }
 
 
-            <span class="addon-downloads">
-
+            <span
+              class="addon-downloads"
+            >
               ↓ ${downloads}
-
             </span>
 
           </div>
 
 
+          <!-- AUTHOR -->
+
           ${
             author
               ? `
-                <div class="addon-author">
-
+                <div
+                  class="addon-author"
+                >
                   ${author}
-
                 </div>
               `
               : ""
           }
+
 
         </div>
 
@@ -348,7 +605,8 @@ function renderAddons(
     addons.length === 0
   ) {
 
-    container.innerHTML = "";
+    container.innerHTML =
+      "";
 
     return;
   }
@@ -356,6 +614,10 @@ function renderAddons(
 
   container.innerHTML =
     addons
+      .slice(
+        0,
+        MAX_HOME_ITEMS
+      )
       .map(
         createAddonCard
       )
@@ -415,7 +677,7 @@ function showError(
 
 
 /* =========================================================
-   SUPABASE SELECT
+   SUPABASE COLUMNS
    ========================================================= */
 
 const addonColumns = `
@@ -443,6 +705,7 @@ const addonColumns = `
 
 /* =========================================================
    RECOMMENDED
+   featured = true
    ========================================================= */
 
 async function loadRecommended() {
@@ -571,6 +834,7 @@ async function loadLatest() {
 
 /* =========================================================
    POPULAR
+   download_count DESC
    ========================================================= */
 
 async function loadPopular() {
@@ -966,7 +1230,7 @@ if (menuOverlay) {
 
 
 /* =========================================================
-   ESC TO CLOSE MENU
+   ESC
    ========================================================= */
 
 document.addEventListener(
@@ -974,7 +1238,8 @@ document.addEventListener(
   function (event) {
 
     if (
-      event.key === "Escape"
+      event.key ===
+      "Escape"
     ) {
 
       closeSideMenu();
@@ -994,7 +1259,7 @@ async function loadHome() {
   if (
     !SUPABASE_URL ||
     SUPABASE_URL ===
-      "YOUR_SUPABASE_URL"
+      "https://rtwljeoxxhlfortcputj.supabase.co"
   ) {
 
     console.error(
@@ -1006,41 +1271,4 @@ async function loadHome() {
 
 
   if (
-    !SUPABASE_ANON_KEY ||
-    SUPABASE_ANON_KEY ===
-      "YOUR_SUPABASE_ANON_KEY"
-  ) {
-
-    console.error(
-      "[SMC DL] Supabase anon key belum diisi."
-    );
-
-    return;
-  }
-
-
-  await Promise.all([
-    loadRecommended(),
-    loadLatest(),
-    loadPopular()
-  ]);
-
-}
-
-
-/* =========================================================
-   START
-   ========================================================= */
-
-loadHome();
-
-
-/* =========================================================
-   GLOBAL ACCESS
-   ========================================================= */
-
-window.smcIncrementView =
-  incrementViewCount;
-
-window.smcIncrementDownload =
-  incrementDownloadCount;
+    !
