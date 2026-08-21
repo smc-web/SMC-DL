@@ -3868,3 +3868,107 @@ input {
   }
 
 }
+/* =========================================================
+   HERO DESCRIPTION — PIXEL TYPING
+   ========================================================= */
+
+.hero-description.hero-typing {
+  max-width: 680px;
+
+  margin: 25px auto 32px;
+
+  color: #a8c0d8;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  line-height: 1.9;
+
+  letter-spacing: 1px;
+
+  text-shadow:
+    1px 0 rgba(100, 190, 255, .15),
+    0 0 8px rgba(0, 130, 255, .12);
+
+  min-height: 54px;
+}
+
+
+/* CURSOR */
+
+.typing-cursor {
+  display: inline-block;
+
+  margin-left: 3px;
+
+  color: #5ec7ff;
+
+  font-family: monospace;
+
+  font-weight: 900;
+
+  text-shadow:
+    0 0 8px rgba(50, 190, 255, .8);
+
+  animation:
+    typingCursor .7s steps(1) infinite;
+}
+
+
+@keyframes typingCursor {
+
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+
+}
+
+
+/* PIXEL FEEL */
+
+.hero-typing #typingText {
+  image-rendering: pixelated;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .hero-description.hero-typing {
+
+    font-size: 12px;
+
+    line-height: 1.9;
+
+    letter-spacing: .7px;
+
+    min-height: 72px;
+
+    padding: 0 8px;
+
+  }
+
+}
+
+
+/* REDUCE MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .typing-cursor {
+    animation: none;
+  }
+
+}
