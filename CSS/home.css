@@ -1564,3 +1564,222 @@ input {
   }
 
 }
+/* =====================================================
+   HORIZONTAL ADDON CAROUSEL
+   5 CARD + SCROLL KE KANAN
+===================================================== */
+
+.addon-grid {
+  display: flex !important;
+
+  gap: 14px;
+
+  overflow-x: auto;
+
+  overflow-y: hidden;
+
+  padding:
+    4px 2px 14px;
+
+  scroll-behavior: smooth;
+
+  scrollbar-width: none;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.addon-grid::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* CARD */
+
+.addon-grid .addon-card {
+  flex: 0 0 190px;
+
+  width: 190px;
+
+  min-width: 190px;
+
+  max-width: 190px;
+
+  overflow: hidden;
+}
+
+
+/* GAMBAR */
+
+.addon-grid .addon-image-wrapper {
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  overflow: hidden;
+}
+
+.addon-grid .addon-image {
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  transition:
+    transform .35s ease;
+}
+
+.addon-grid .addon-card:hover
+.addon-image {
+  transform: scale(1.04);
+}
+
+
+/* ISI CARD */
+
+.addon-grid .addon-card-content {
+  padding: 10px;
+}
+
+
+/* CATEGORY */
+
+.addon-grid .addon-category {
+  display: inline-block;
+
+  margin-bottom: 5px;
+
+  font-size: 6px;
+}
+
+
+/* TITLE */
+
+.addon-grid .addon-title {
+  font-size: 9px;
+
+  line-height: 1.4;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 2;
+
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+
+/* DESCRIPTION */
+
+.addon-grid .addon-description {
+  margin-top: 5px;
+
+  font-size: 7px;
+
+  line-height: 1.45;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 2;
+
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+
+  opacity: .8;
+}
+
+
+/* META */
+
+.addon-grid .addon-meta {
+  display: flex;
+
+  gap: 6px;
+
+  flex-wrap: wrap;
+
+  margin-top: 7px;
+
+  font-size: 6px;
+}
+
+
+/* AUTHOR */
+
+.addon-grid .addon-author {
+  margin-top: 6px;
+
+  font-size: 6px;
+
+  color: var(--muted);
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .addon-grid {
+    gap: 10px;
+
+    padding-bottom: 12px;
+  }
+
+  .addon-grid .addon-card {
+    flex: 0 0 165px;
+
+    width: 165px;
+
+    min-width: 165px;
+
+    max-width: 165px;
+
+    border-radius: 13px;
+  }
+
+  .addon-grid .addon-card-content {
+    padding: 9px;
+  }
+
+  .addon-grid .addon-title {
+    font-size: 8px;
+  }
+
+  .addon-grid .addon-description {
+    font-size: 6.5px;
+  }
+
+}
+
+
+/* =====================================================
+   VERY SMALL PHONE
+===================================================== */
+
+@media (max-width: 380px) {
+
+  .addon-grid .addon-card {
+    flex: 0 0 150px;
+
+    width: 150px;
+
+    min-width: 150px;
+
+    max-width: 150px;
+  }
+
+}
