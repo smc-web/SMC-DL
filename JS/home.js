@@ -7,11 +7,10 @@
 
 /* =========================================================
    SUPABASE CONFIG
-========================================================= */
+   ========================================================= */
 
 const SUPABASE_URL = "https://rtwljeoxxhlfortcputj.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_stZa8kHgp-sokGGLRQIfrA_dM9ec8x-";
-
 
 
 const supabaseClient =
@@ -23,7 +22,7 @@ const supabaseClient =
 
 /* =========================================================
    DOM
-========================================================= */
+   ========================================================= */
 
 const recommendedAddons =
   document.getElementById(
@@ -53,14 +52,14 @@ const searchInput =
 
 /* =========================================================
    CONFIG
-========================================================= */
+   ========================================================= */
 
 const MAX_HOME_ITEMS = 6;
 
 
 /* =========================================================
    HELPERS
-========================================================= */
+   ========================================================= */
 
 function escapeHTML(value) {
 
@@ -86,41 +85,21 @@ function formatDownloads(value) {
     Number(value) || 0;
 
   if (number >= 1000000) {
-
-    return (
-      (number / 1000000)
-        .toFixed(1) +
-      "M"
-    );
+    return `${(number / 1000000).toFixed(1)}M`;
   }
 
   if (number >= 1000) {
-
-    return (
-      (number / 1000)
-        .toFixed(1) +
-      "K"
-    );
+    return `${(number / 1000).toFixed(1)}K`;
   }
 
   return number.toString();
 }
 
 
-function formatFileSize(value) {
-
-  if (!value) {
-    return "";
-  }
-
-  return String(value);
-}
-
-
 function formatCategory(value) {
 
   if (!value) {
-    return "Minecraft";
+    return "Addon";
   }
 
   const text =
@@ -142,12 +121,6 @@ function createAddonCard(addon) {
   const id =
     encodeURIComponent(
       addon.id
-    );
-
-
-  const slug =
-    encodeURIComponent(
-      addon.slug || ""
     );
 
 
@@ -196,9 +169,8 @@ function createAddonCard(addon) {
 
   const fileSize =
     escapeHTML(
-      formatFileSize(
-        addon.file_size
-      )
+      addon.file_size ||
+      ""
     );
 
 
@@ -216,113 +188,76 @@ function createAddonCard(addon) {
 
 
   /*
-   * Detail URL menggunakan slug.
-   * Jika slug kosong, fallback ke ID.
+   * CARD SELALU MENUJU
+   *
+   * download.html?id=ID_ADDON
+   *
+   * Tidak menggunakan slug supaya
+   * sama dengan sistem addon page.
    */
 
-  const detailValue =
-    addon.slug
-      ? `slug=${slug}`
-      : `id=${id}`;
+  const detailURL =
+    `download.html?id=${id}`;
 
-
-  /* =======================================================
-     CARD
-  ======================================================= */
 
   return `
+
     <article
       class="addon-card"
       data-addon-id="${id}"
-      style="
-        width: 100%;
-        min-width: 0;
-        overflow: hidden;
-      "
     >
 
       <a
-        href="addon.html?${detailValue}"
+        href="${detailURL}"
         class="addon-card-link"
-        style="
-          display: block;
-          width: 100%;
-          min-width: 0;
-          text-decoration: none;
-          color: inherit;
-        "
       >
 
+        <!-- FOTO -->
 
-        <!-- =============================================
-             IMAGE
-             16:9 seperti addons.html
-        ============================================== -->
-
-        <div
-          class="addon-image-wrapper"
-          style="
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-            background: #030b15;
-          "
-        >
+        <div class="addon-thumbnail">
 
           <img
             src="${image}"
             alt="${name}"
             class="addon-image"
             loading="lazy"
-            style="
-              width: 100%;
-              height: 100%;
-              display: block;
-              object-fit: cover;
-              object-position: center;
-              transition: transform .45s ease,
-                          filter .45s ease;
-            "
             onerror="
               this.onerror=null;
               this.src='assets/icons/grass.webp';
             "
           >
 
-        </div>
-
-
-        <!-- =============================================
-             CARD CONTENT
-        ============================================== -->
-
-        <div
-          class="addon-card-content"
-          style="
-            min-width: 0;
-          "
-        >
-
 
           <!-- CATEGORY -->
 
           <span class="addon-category">
+
             ${category}
+
           </span>
 
+        </div>
+
+
+        <!-- INFO -->
+
+        <div class="addon-info">
 
           <!-- TITLE -->
 
           <h3 class="addon-title">
+
             ${name}
+
           </h3>
 
 
           <!-- DESCRIPTION -->
 
           <p class="addon-description">
+
             ${description}
+
           </p>
 
 
@@ -364,37 +299,39 @@ function createAddonCard(addon) {
 
 
             <span class="addon-downloads">
+
               ↓ ${downloads}
+
             </span>
 
           </div>
 
 
-          <!-- AUTHOR -->
-
           ${
             author
               ? `
                 <div class="addon-author">
+
                   ${author}
+
                 </div>
               `
               : ""
           }
-
 
         </div>
 
       </a>
 
     </article>
+
   `;
 }
 
 
 /* =========================================================
    RENDER
-========================================================= */
+   ========================================================= */
 
 function renderAddons(
   container,
@@ -419,85 +356,16 @@ function renderAddons(
 
   container.innerHTML =
     addons
-      .map(createAddonCard)
+      .map(
+        createAddonCard
+      )
       .join("");
-
-
-  /*
-   * Pastikan homepage menggunakan
-   * 2 card kiri-kanan.
-   */
-
-  container.style.display =
-    "grid";
-
-  container.style.gridTemplateColumns =
-    "repeat(2, minmax(0, 1fr))";
-
-  container.style.gap =
-    "14px";
-
-  container.style.width =
-    "100%";
-
-
-  /*
-   * Hover gambar.
-   */
-
-  const cards =
-    container.querySelectorAll(
-      ".addon-card"
-    );
-
-
-  cards.forEach(
-    (card) => {
-
-      const image =
-        card.querySelector(
-          ".addon-image"
-        );
-
-
-      if (!image) {
-        return;
-      }
-
-
-      card.addEventListener(
-        "mouseenter",
-        () => {
-
-          image.style.transform =
-            "scale(1.035)";
-
-          image.style.filter =
-            "brightness(1.08)";
-        }
-      );
-
-
-      card.addEventListener(
-        "mouseleave",
-        () => {
-
-          image.style.transform =
-            "scale(1)";
-
-          image.style.filter =
-            "brightness(1)";
-        }
-      );
-
-    }
-  );
 }
 
 
 /* =========================================================
    LOADING
-========================================================= */
+   ========================================================= */
 
 function showLoading(
   container
@@ -509,16 +377,20 @@ function showLoading(
 
 
   container.innerHTML = `
+
     <div class="addon-loading">
+
       Memuat addon...
+
     </div>
+
   `;
 }
 
 
 /* =========================================================
    ERROR
-========================================================= */
+   ========================================================= */
 
 function showError(
   container,
@@ -531,18 +403,23 @@ function showError(
 
 
   container.innerHTML = `
+
     <div class="addon-error">
+
       ${escapeHTML(message)}
+
     </div>
+
   `;
 }
 
 
 /* =========================================================
    SUPABASE SELECT
-========================================================= */
+   ========================================================= */
 
 const addonColumns = `
+
   id,
   name,
   slug,
@@ -560,13 +437,13 @@ const addonColumns = `
   featured,
   created_at,
   updated_at
+
 `;
 
 
 /* =========================================================
    RECOMMENDED
-   featured = true
-========================================================= */
+   ========================================================= */
 
 async function loadRecommended() {
 
@@ -583,26 +460,27 @@ async function loadRecommended() {
   const {
     data,
     error
-  } = await supabaseClient
-    .from("addons")
-    .select(addonColumns)
-    .eq(
-      "status",
-      "published"
-    )
-    .eq(
-      "featured",
-      true
-    )
-    .order(
-      "created_at",
-      {
-        ascending: false
-      }
-    )
-    .limit(
-      MAX_HOME_ITEMS
-    );
+  } =
+    await supabaseClient
+      .from("addons")
+      .select(addonColumns)
+      .eq(
+        "status",
+        "published"
+      )
+      .eq(
+        "featured",
+        true
+      )
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      )
+      .limit(
+        MAX_HOME_ITEMS
+      );
 
 
   if (error) {
@@ -631,8 +509,7 @@ async function loadRecommended() {
 
 /* =========================================================
    LATEST
-   created_at DESC
-========================================================= */
+   ========================================================= */
 
 async function loadLatest() {
 
@@ -649,22 +526,23 @@ async function loadLatest() {
   const {
     data,
     error
-  } = await supabaseClient
-    .from("addons")
-    .select(addonColumns)
-    .eq(
-      "status",
-      "published"
-    )
-    .order(
-      "created_at",
-      {
-        ascending: false
-      }
-    )
-    .limit(
-      MAX_HOME_ITEMS
-    );
+  } =
+    await supabaseClient
+      .from("addons")
+      .select(addonColumns)
+      .eq(
+        "status",
+        "published"
+      )
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      )
+      .limit(
+        MAX_HOME_ITEMS
+      );
 
 
   if (error) {
@@ -693,8 +571,7 @@ async function loadLatest() {
 
 /* =========================================================
    POPULAR
-   download_count DESC
-========================================================= */
+   ========================================================= */
 
 async function loadPopular() {
 
@@ -711,22 +588,23 @@ async function loadPopular() {
   const {
     data,
     error
-  } = await supabaseClient
-    .from("addons")
-    .select(addonColumns)
-    .eq(
-      "status",
-      "published"
-    )
-    .order(
-      "download_count",
-      {
-        ascending: false
-      }
-    )
-    .limit(
-      MAX_HOME_ITEMS
-    );
+  } =
+    await supabaseClient
+      .from("addons")
+      .select(addonColumns)
+      .eq(
+        "status",
+        "published"
+      )
+      .order(
+        "download_count",
+        {
+          ascending: false
+        }
+      )
+      .limit(
+        MAX_HOME_ITEMS
+      );
 
 
   if (error) {
@@ -755,7 +633,7 @@ async function loadPopular() {
 
 /* =========================================================
    VIEW COUNT
-========================================================= */
+   ========================================================= */
 
 async function incrementViewCount(
   addonId
@@ -771,16 +649,17 @@ async function incrementViewCount(
     const {
       data: addon,
       error: fetchError
-    } = await supabaseClient
-      .from("addons")
-      .select(
-        "view_count"
-      )
-      .eq(
-        "id",
-        addonId
-      )
-      .single();
+    } =
+      await supabaseClient
+        .from("addons")
+        .select(
+          "view_count"
+        )
+        .eq(
+          "id",
+          addonId
+        )
+        .single();
 
 
     if (fetchError) {
@@ -802,16 +681,17 @@ async function incrementViewCount(
 
     const {
       error: updateError
-    } = await supabaseClient
-      .from("addons")
-      .update({
-        view_count:
-          currentViews + 1
-      })
-      .eq(
-        "id",
-        addonId
-      );
+    } =
+      await supabaseClient
+        .from("addons")
+        .update({
+          view_count:
+            currentViews + 1
+        })
+        .eq(
+          "id",
+          addonId
+        );
 
 
     if (updateError) {
@@ -836,7 +716,7 @@ async function incrementViewCount(
 
 /* =========================================================
    DOWNLOAD COUNT
-========================================================= */
+   ========================================================= */
 
 async function incrementDownloadCount(
   addonId
@@ -852,16 +732,17 @@ async function incrementDownloadCount(
     const {
       data: addon,
       error: fetchError
-    } = await supabaseClient
-      .from("addons")
-      .select(
-        "download_count"
-      )
-      .eq(
-        "id",
-        addonId
-      )
-      .single();
+    } =
+      await supabaseClient
+        .from("addons")
+        .select(
+          "download_count"
+        )
+        .eq(
+          "id",
+          addonId
+        )
+        .single();
 
 
     if (fetchError) {
@@ -883,16 +764,17 @@ async function incrementDownloadCount(
 
     const {
       error: updateError
-    } = await supabaseClient
-      .from("addons")
-      .update({
-        download_count:
-          currentDownloads + 1
-      })
-      .eq(
-        "id",
-        addonId
-      );
+    } =
+      await supabaseClient
+        .from("addons")
+        .update({
+          download_count:
+            currentDownloads + 1
+        })
+        .eq(
+          "id",
+          addonId
+        );
 
 
     if (updateError) {
@@ -917,7 +799,7 @@ async function incrementDownloadCount(
 
 /* =========================================================
    SEARCH
-========================================================= */
+   ========================================================= */
 
 if (searchForm) {
 
@@ -930,7 +812,8 @@ if (searchForm) {
 
       const query =
         String(
-          searchInput?.value || ""
+          searchInput?.value ||
+          ""
         ).trim();
 
 
@@ -957,7 +840,7 @@ if (searchForm) {
 
 /* =========================================================
    SIDE MENU
-========================================================= */
+   ========================================================= */
 
 const menuButton =
   document.getElementById(
@@ -1084,15 +967,14 @@ if (menuOverlay) {
 
 /* =========================================================
    ESC TO CLOSE MENU
-========================================================= */
+   ========================================================= */
 
 document.addEventListener(
   "keydown",
   function (event) {
 
     if (
-      event.key ===
-      "Escape"
+      event.key === "Escape"
     ) {
 
       closeSideMenu();
@@ -1105,7 +987,7 @@ document.addEventListener(
 
 /* =========================================================
    LOAD HOME
-========================================================= */
+   ========================================================= */
 
 async function loadHome() {
 
@@ -1138,13 +1020,9 @@ async function loadHome() {
 
 
   await Promise.all([
-
     loadRecommended(),
-
     loadLatest(),
-
     loadPopular()
-
   ]);
 
 }
@@ -1152,14 +1030,14 @@ async function loadHome() {
 
 /* =========================================================
    START
-========================================================= */
+   ========================================================= */
 
 loadHome();
 
 
 /* =========================================================
-   OPTIONAL GLOBAL ACCESS
-========================================================= */
+   GLOBAL ACCESS
+   ========================================================= */
 
 window.smcIncrementView =
   incrementViewCount;
