@@ -4273,3 +4273,17 @@ input {
   }
 
 }
+/* =========================================================
+   DESKTOP — CENTER HERO BADGE
+   ========================================================= */
+
+@media (min-width: 601px) {
+  .hero-badge {
+    width: fit-content;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    left: auto;
+    right: auto;
+    transform: none;
+  }
+}
