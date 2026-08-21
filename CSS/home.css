@@ -3656,3 +3656,215 @@ input {
   }
 
 }
+/* =========================================================
+   SMC DL — MODERN PREMIUM FONT + SHINE
+   ========================================================= */
+
+/* LOGO NAVBAR */
+
+.brand-main {
+  font-family: 'Inter', sans-serif !important;
+
+  font-size: 24px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+  line-height: 1;
+
+  /* gradient premium */
+  background:
+    linear-gradient(
+      105deg,
+      #ffffff 0%,
+      #ffffff 28%,
+      #d9f3ff 40%,
+      #55bfff 50%,
+      #ffffff 60%,
+      #168cff 72%,
+      #ffffff 86%,
+      #ffffff 100%
+    );
+
+  background-size: 300% 100%;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+
+  animation:
+    smcLogoShine 4.5s ease-in-out infinite;
+
+  filter:
+    drop-shadow(0 0 10px rgba(60, 180, 255, .22));
+}
+
+
+/* =========================================================
+   HERO SMC DL
+   ========================================================= */
+
+.hero-title {
+
+  font-family: 'Inter', sans-serif !important;
+
+  font-size:
+    clamp(58px, 15vw, 118px);
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  line-height: .92;
+
+  /* lebih mirip font pada desain kanan */
+  background:
+    linear-gradient(
+      105deg,
+
+      #ffffff 0%,
+
+      #ffffff 18%,
+
+      #eefaff 30%,
+
+      #a9ddff 40%,
+
+      #2faaff 50%,
+
+      #ffffff 58%,
+
+      #62c5ff 68%,
+
+      #087eff 78%,
+
+      #ffffff 90%,
+
+      #ffffff 100%
+    );
+
+  background-size: 350% 100%;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+
+  animation:
+    smcHeroShine 5s cubic-bezier(.4,0,.2,1) infinite;
+
+  filter:
+    drop-shadow(
+      0 0 12px rgba(0, 150, 255, .22)
+    )
+    drop-shadow(
+      0 0 30px rgba(0, 120, 255, .10)
+    );
+}
+
+
+/* =========================================================
+   SMC / DL SAMA-SAMA TEBAL
+   ========================================================= */
+
+.hero-title strong {
+  font-family: 'Inter', sans-serif !important;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   SHINE HERO
+   Gerak lambat dari kiri → kanan
+   ========================================================= */
+
+@keyframes smcHeroShine {
+
+  0% {
+    background-position: 100% 50%;
+  }
+
+  35% {
+    background-position: 55% 50%;
+  }
+
+  65% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: -100% 50%;
+  }
+
+}
+
+
+/* =========================================================
+   SHINE LOGO NAVBAR
+   ========================================================= */
+
+@keyframes smcLogoShine {
+
+  0%,
+  15% {
+    background-position: 100% 50%;
+  }
+
+  50% {
+    background-position: 0% 50%;
+  }
+
+  85%,
+  100% {
+    background-position: -100% 50%;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .hero-title {
+
+    font-size: 62px;
+
+    letter-spacing: .5px;
+
+    line-height: .94;
+
+  }
+
+  .brand-main {
+
+    font-size: 20px;
+
+    letter-spacing: 1px;
+
+  }
+
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .hero-title,
+  .brand-main {
+
+    animation: none !important;
+
+  }
+
+}
