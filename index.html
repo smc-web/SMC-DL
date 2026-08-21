@@ -26,34 +26,447 @@
   <title>SMC DL — Minecraft Mods & Addons</title>
 
   <!-- SUPABASE -->
-
-  <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- CSS -->
-
   <link
     rel="stylesheet"
     href="CSS/home.css"
   >
+
+  <!-- DASHBOARD STYLE -->
+  <style>
+
+    /* =========================================
+       HERO DASHBOARD
+    ========================================= */
+
+    .hero-dashboard {
+      width: calc(100% - 40px);
+      max-width: 620px;
+      margin: 35px auto 0;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+
+      padding: 10px;
+
+      border: 1px solid rgba(52, 163, 255, .35);
+      border-radius: 28px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(5, 42, 78, .88),
+          rgba(2, 13, 28, .94)
+        );
+
+      box-shadow:
+        0 0 35px rgba(0, 115, 255, .12),
+        inset 0 0 25px rgba(0, 130, 255, .06);
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+
+    /* =========================================
+       CARD
+    ========================================= */
+
+    .dashboard-card {
+      min-height: 175px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+
+      border-radius: 22px;
+
+      text-decoration: none;
+
+      position: relative;
+      overflow: hidden;
+
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+    }
+
+
+    .dashboard-card::before {
+      content: "";
+
+      position: absolute;
+
+      width: 120px;
+      height: 120px;
+
+      border-radius: 50%;
+
+      background: rgba(255,255,255,.08);
+
+      filter: blur(25px);
+
+      top: -45px;
+      right: -35px;
+
+      animation:
+        dashboardGlow 4s ease-in-out infinite;
+    }
+
+
+    .dashboard-card:hover {
+      transform: translateY(-4px);
+    }
+
+
+    .dashboard-card:active {
+      transform: scale(.97);
+    }
+
+
+    /* =========================================
+       CARD 1 — MEDIAFIRE
+    ========================================= */
+
+    .dashboard-download {
+      border: 1px solid rgba(35, 155, 255, .55);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(8, 103, 188, .75),
+          rgba(3, 38, 78, .9)
+        );
+
+      box-shadow:
+        inset 0 0 25px rgba(0, 150, 255, .12),
+        0 0 20px rgba(0, 130, 255, .08);
+    }
+
+
+    /* =========================================
+       CARD 2 — UPLOAD
+    ========================================= */
+
+    .dashboard-upload {
+      border: 1px solid rgba(255, 50, 90, .55);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(125, 25, 60, .8),
+          rgba(50, 12, 35, .92)
+        );
+
+      box-shadow:
+        inset 0 0 25px rgba(255, 40, 80, .1),
+        0 0 20px rgba(255, 30, 80, .08);
+    }
+
+
+    /* =========================================
+       CARD 3 — COMMUNITY
+    ========================================= */
+
+    .dashboard-community {
+      border: 1px solid rgba(50, 210, 205, .45);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(15, 95, 100, .78),
+          rgba(5, 38, 48, .92)
+        );
+
+      box-shadow:
+        inset 0 0 25px rgba(0, 220, 210, .08),
+        0 0 20px rgba(0, 200, 200, .07);
+    }
+
+
+    /* =========================================
+       ICON
+    ========================================= */
+
+    .dashboard-icon {
+      width: 55px;
+      height: 55px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 9px;
+
+      border-radius: 17px;
+
+      font-size: 29px;
+      font-weight: 800;
+
+      position: relative;
+      z-index: 2;
+
+      animation:
+        iconFloat 2.8s ease-in-out infinite;
+    }
+
+
+    .dashboard-download .dashboard-icon {
+      border: 1px solid rgba(80, 190, 255, .5);
+
+      background:
+        rgba(0, 120, 230, .16);
+
+      color: #67c8ff;
+
+      text-shadow:
+        0 0 12px rgba(60, 190, 255, .8);
+    }
+
+
+    .dashboard-upload .dashboard-icon {
+      font-size: 30px;
+
+      animation:
+        trophyFloat 2.2s ease-in-out infinite;
+    }
+
+
+    /* =========================================
+       COMMUNITY IMAGE
+    ========================================= */
+
+    .community-avatar {
+      width: 55px;
+      height: 55px;
+
+      object-fit: cover;
+
+      border-radius: 50%;
+
+      border: 2px solid rgba(100, 245, 240, .65);
+
+      box-shadow:
+        0 0 15px rgba(0, 220, 220, .25);
+
+      animation:
+        communityPulse 2.5s ease-in-out infinite;
+    }
+
+
+    /* =========================================
+       VALUE
+    ========================================= */
+
+    .dashboard-value {
+      position: relative;
+      z-index: 2;
+
+      color: #f3f8ff;
+
+      font-size: 23px;
+      font-weight: 800;
+
+      line-height: 1.1;
+
+      text-shadow:
+        0 0 12px rgba(120, 200, 255, .18);
+    }
+
+
+    /* =========================================
+       LABEL
+    ========================================= */
+
+    .dashboard-label {
+      position: relative;
+      z-index: 2;
+
+      margin-top: 8px;
+
+      color: #86a3bf;
+
+      font-size: 10px;
+      font-weight: 700;
+
+      letter-spacing: 1.4px;
+
+      text-transform: uppercase;
+    }
+
+
+    /* =========================================
+       ANIMATIONS
+    ========================================= */
+
+    @keyframes iconFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+
+    }
+
+
+    @keyframes trophyFloat {
+
+      0%,
+      100% {
+        transform:
+          translateY(0)
+          rotate(-2deg);
+      }
+
+      50% {
+        transform:
+          translateY(-7px)
+          rotate(2deg);
+      }
+
+    }
+
+
+    @keyframes communityPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+
+        box-shadow:
+          0 0 12px rgba(0, 220, 220, .2);
+      }
+
+      50% {
+        transform: scale(1.07);
+
+        box-shadow:
+          0 0 24px rgba(0, 220, 220, .45);
+      }
+
+    }
+
+
+    @keyframes dashboardGlow {
+
+      0%,
+      100% {
+        opacity: .35;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: .7;
+        transform: scale(1.25);
+      }
+
+    }
+
+
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 600px) {
+
+      .hero-dashboard {
+        width: calc(100% - 28px);
+
+        gap: 8px;
+
+        padding: 8px;
+
+        border-radius: 24px;
+      }
+
+
+      .dashboard-card {
+        min-height: 160px;
+
+        border-radius: 19px;
+      }
+
+
+      .dashboard-icon,
+      .community-avatar {
+        width: 48px;
+        height: 48px;
+      }
+
+
+      .dashboard-icon {
+        font-size: 25px;
+      }
+
+
+      .dashboard-upload .dashboard-icon {
+        font-size: 26px;
+      }
+
+
+      .dashboard-value {
+        font-size: 20px;
+      }
+
+
+      .dashboard-label {
+        font-size: 8px;
+
+        letter-spacing: 1px;
+      }
+
+    }
+
+
+    @media (max-width: 380px) {
+
+      .hero-dashboard {
+        width: calc(100% - 20px);
+      }
+
+
+      .dashboard-card {
+        min-height: 145px;
+      }
+
+
+      .dashboard-icon,
+      .community-avatar {
+        width: 43px;
+        height: 43px;
+      }
+
+
+      .dashboard-value {
+        font-size: 18px;
+      }
+
+    }
+
+  </style>
 
 </head>
 
 <body>
 
 
-  <!-- =========================
-       BACKGROUND
-  ========================== -->
+  <!-- BACKGROUND -->
 
   <div class="background-glow"></div>
   <div class="stars"></div>
 
 
-  <!-- =========================
-       TOP NAVBAR
-  ========================== -->
+  <!-- TOP NAVBAR -->
 
   <header class="top-navbar">
 
@@ -90,9 +503,7 @@
   </header>
 
 
-  <!-- =========================
-       MENU OVERLAY
-  ========================== -->
+  <!-- MENU OVERLAY -->
 
   <div
     class="menu-overlay"
@@ -100,9 +511,7 @@
   ></div>
 
 
-  <!-- =========================
-       SIDE MENU
-  ========================== -->
+  <!-- SIDE MENU -->
 
   <aside
     class="side-menu"
@@ -187,16 +596,12 @@
   </aside>
 
 
-  <!-- =========================
-       MAIN
-  ========================== -->
+  <!-- MAIN -->
 
   <main>
 
 
-    <!-- =========================
-         HERO
-    ========================== -->
+    <!-- HERO -->
 
     <section class="hero">
 
@@ -219,9 +624,9 @@
         </p>
 
 
-        <!-- =========================
-             NEW DASHBOARD
-        ========================== -->
+        <!-- ==================================
+             DASHBOARD BARU
+        =================================== -->
 
         <section
           class="hero-dashboard"
@@ -229,9 +634,7 @@
         >
 
 
-          <!-- =====================
-               CARD 01
-          ====================== -->
+          <!-- MEDIAFIRE -->
 
           <div
             class="dashboard-card dashboard-download"
@@ -252,9 +655,7 @@
           </div>
 
 
-          <!-- =====================
-               CARD 02
-          ====================== -->
+          <!-- TOTAL UPLOAD -->
 
           <div
             class="dashboard-card dashboard-upload"
@@ -278,9 +679,7 @@
           </div>
 
 
-          <!-- =====================
-               CARD 03
-          ====================== -->
+          <!-- KOMUNITAS -->
 
           <a
             href="https://chat.whatsapp.com/C68dxQenTNV3JnvXz8j24i"
@@ -289,9 +688,11 @@
             class="dashboard-card dashboard-community"
           >
 
-            <div class="dashboard-icon">
-              ♡
-            </div>
+            <img
+              src="assets/icons/community.webp"
+              alt="Komunitas SMC DL"
+              class="community-avatar"
+            >
 
             <div class="dashboard-value">
               JOIN
@@ -306,75 +707,12 @@
 
         </section>
 
+      </div>
 
-        <!-- MINI DASHBOARD -->
-
-<div class="smc-dashboard">
-
-  <div class="smc-dashboard-card download-card">
-
-    <div class="dashboard-download-icon">
-      ↓
-    </div>
-
-    <div class="dashboard-value">
-      100%
-    </div>
-
-    <div class="dashboard-label">
-      Mediafire
-    </div>
-
-  </div>
+    </section>
 
 
-  <div class="smc-dashboard-card stats-card">
-
-    <div class="dashboard-podium">
-      <div class="podium-bar"></div>
-      <div class="podium-bar"></div>
-      <div class="podium-bar"></div>
-    </div>
-
-    <div
-      class="dashboard-value"
-      id="totalUploads"
-    >
-      0
-    </div>
-
-    <div class="dashboard-label">
-      Total Uploads
-    </div>
-
-  </div>
-
-
-  <div class="smc-dashboard-card info-card">
-
-    <div class="dashboard-info-icon">
-      ◉
-    </div>
-
-    <div
-      class="dashboard-value"
-      id="totalViews"
-    >
-      0
-    </div>
-
-    <div class="dashboard-label">
-      Total Views
-    </div>
-
-  </div>
-
-</div>
-
-
-    <!-- =========================
-         ADVERTISEMENT
-    ========================== -->
+    <!-- ADVERTISEMENT -->
 
     <section
       class="ad-container"
@@ -392,9 +730,7 @@
     </section>
 
 
-    <!-- =========================
-         REKOMENDASI
-    ========================== -->
+    <!-- REKOMENDASI -->
 
     <section class="content-section">
 
@@ -423,8 +759,6 @@
       </div>
 
 
-      <!-- DATA SUPABASE -->
-
       <div
         class="addon-grid"
         id="recommendedAddons"
@@ -433,9 +767,7 @@
     </section>
 
 
-    <!-- =========================
-         TERBARU
-    ========================== -->
+    <!-- TERBARU -->
 
     <section class="content-section">
 
@@ -464,8 +796,6 @@
       </div>
 
 
-      <!-- DATA SUPABASE -->
-
       <div
         class="addon-grid"
         id="latestAddons"
@@ -474,9 +804,7 @@
     </section>
 
 
-    <!-- =========================
-         KATEGORI
-    ========================== -->
+    <!-- KATEGORI -->
 
     <section
       class="content-section category-section"
@@ -614,9 +942,7 @@
     </section>
 
 
-    <!-- =========================
-         POPULER
-    ========================== -->
+    <!-- POPULER -->
 
     <section class="content-section">
 
@@ -645,8 +971,6 @@
       </div>
 
 
-      <!-- DATA SUPABASE -->
-
       <div
         class="addon-grid"
         id="popularAddons"
@@ -655,9 +979,7 @@
     </section>
 
 
-    <!-- =========================
-         DEK SKRIPSI
-    ========================== -->
+    <!-- DEK SKRIPSI -->
 
     <section
       class="dek-skripsi"
@@ -706,9 +1028,7 @@
     </section>
 
 
-    <!-- =========================
-         SECOND ADVERTISEMENT
-    ========================== -->
+    <!-- SECOND ADVERTISEMENT -->
 
     <section class="ad-container">
 
@@ -725,9 +1045,7 @@
   </main>
 
 
-  <!-- =========================
-       FOOTER
-  ========================== -->
+  <!-- FOOTER -->
 
   <footer class="footer">
 
@@ -747,16 +1065,13 @@
         Home
       </a>
 
-
       <a href="addons.html">
         Addon
       </a>
 
-
       <a href="favorites.html">
         Favorit
       </a>
-
 
       <a href="#dek-skripsi">
         Dek Skripsi
@@ -772,9 +1087,7 @@
   </footer>
 
 
-  <!-- =========================
-       BOTTOM NAVBAR
-  ========================== -->
+  <!-- BOTTOM NAVBAR -->
 
   <nav class="bottom-navbar">
 
@@ -851,13 +1164,6 @@
     </a>
 
   </nav>
-
-
-  <!-- SUPABASE -->
-
-  <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-  ></script>
 
 
   <!-- HOME JS -->
