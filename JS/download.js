@@ -1,12 +1,20 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const tasks = document.querySelectorAll(".task-card");
-  const timer = document.getElementById("timer");
-  const continueButton = document.getElementById("continueButton");
+
+  const tasks =
+    document.querySelectorAll(".task-card");
+
+  const timer =
+    document.getElementById("timer");
+
+  const continueButton =
+    document.getElementById("continueButton");
+
 
   let completedTasks = 0;
   let timerStarted = false;
   let timeLeft = 10;
   let downloadUrl = null;
+
 
   // =====================================
   // SUPABASE CONFIG
@@ -18,135 +26,229 @@ document.addEventListener("DOMContentLoaded", async () => {
   const SUPABASE_KEY =
     "sb_publishable_stZa8kHgp-sokGGLRQIfrA_dM9ec8x-";
 
+
   // =====================================
-  // AMBIL ID ADDON DARI URL
+  // AMBIL ID ADDON
   // =====================================
 
-  const params = new URLSearchParams(
-    window.location.search
-  );
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
-  const addonId = params.get("id");
+  const addonId =
+    params.get("id");
+
 
   if (!addonId) {
-    console.error("ID addon tidak ditemukan.");
+
+    console.error(
+      "[SMC DL] ID addon tidak ditemukan."
+    );
 
     if (continueButton) {
+
       continueButton.disabled = true;
+
     }
 
     return;
   }
 
+
+  console.log(
+    "[SMC DL] Addon ID:",
+    addonId
+  );
+
+
   // =====================================
-  // AMBIL DOWNLOAD URL DARI SUPABASE
+  // AMBIL DOWNLOAD URL
   // =====================================
 
   try {
-    const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/addons?id=eq.${encodeURIComponent(addonId)}&select=download_url`,
-      {
-        method: "GET",
 
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${SUPABASE_KEY}`
+    const response =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/addons?id=eq.${encodeURIComponent(addonId)}&select=id,name,download_url,download_count`,
+        {
+
+          method: "GET",
+
+          headers: {
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              `Bearer ${SUPABASE_KEY}`,
+
+            "Content-Type":
+              "application/json"
+
+          }
+
         }
-      }
-    );
+      );
+
 
     if (!response.ok) {
+
+      const errorText =
+        await response.text();
+
       throw new Error(
-        `Supabase error: ${response.status}`
+        `Supabase ${response.status}: ${errorText}`
       );
+
     }
 
-    const data = await response.json();
 
-    if (!data || data.length === 0) {
+    const data =
+      await response.json();
+
+
+    if (
+      !data ||
+      data.length === 0
+    ) {
+
       throw new Error(
         "Addon tidak ditemukan."
       );
+
     }
 
-    downloadUrl = data[0].download_url;
+
+    downloadUrl =
+      data[0].download_url;
+
 
     if (!downloadUrl) {
+
       throw new Error(
         "download_url masih kosong di Supabase."
       );
+
     }
 
+
     console.log(
-      "Download URL berhasil:",
+      "[SMC DL] Download URL:",
       downloadUrl
     );
 
+
   } catch (error) {
+
     console.error(
-      "Gagal mengambil link download:",
+      "[SMC DL] Gagal mengambil addon:",
       error
     );
 
+
     if (continueButton) {
+
       continueButton.disabled = true;
 
+
       const span =
-        continueButton.querySelector("span");
+        continueButton.querySelector(
+          "span"
+        );
+
 
       if (span) {
+
         span.textContent =
           "Download unavailable";
+
       }
+
     }
 
+
     return;
+
   }
+
 
   // =====================================
   // TASK CLICK
   // =====================================
 
   tasks.forEach((task) => {
+
     const button =
-      task.querySelector(".task-button");
-
-    if (!button) return;
-
-    button.addEventListener("click", () => {
-
-      if (
-        task.classList.contains("completed")
-      ) {
-        return;
-      }
-
-      task.classList.add("completed");
-
-      const number =
-        task.querySelector(".task-number");
-
-      if (number) {
-        number.textContent = "✓";
-
-        number.classList.add(
-          "completed-number"
-        );
-      }
-
-      button.textContent = "✓ Done";
-
-      button.classList.add(
-        "completed-button"
+      task.querySelector(
+        ".task-button"
       );
 
-      completedTasks++;
 
-      startTimer();
+    if (!button) {
+      return;
+    }
 
-      checkComplete();
-    });
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        if (
+          task.classList.contains(
+            "completed"
+          )
+        ) {
+
+          return;
+
+        }
+
+
+        task.classList.add(
+          "completed"
+        );
+
+
+        const number =
+          task.querySelector(
+            ".task-number"
+          );
+
+
+        if (number) {
+
+          number.textContent =
+            "✓";
+
+          number.classList.add(
+            "completed-number"
+          );
+
+        }
+
+
+        button.textContent =
+          "✓ Done";
+
+
+        button.classList.add(
+          "completed-button"
+        );
+
+
+        completedTasks++;
+
+
+        startTimer();
+
+        checkComplete();
+
+      }
+    );
+
   });
+
 
   // =====================================
   // TIMER
@@ -158,33 +260,54 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
+
     timerStarted = true;
 
-    const interval = setInterval(() => {
 
-      timeLeft--;
+    const interval =
+      setInterval(
+        () => {
 
-      if (timer) {
-        timer.textContent = timeLeft;
-      }
+          timeLeft--;
 
-      if (timeLeft <= 0) {
 
-        clearInterval(interval);
+          if (timer) {
 
-        if (timer) {
-          timer.textContent = "✓";
+            timer.textContent =
+              timeLeft;
 
-          timer.classList.add(
-            "timer-complete"
-          );
-        }
+          }
 
-        checkComplete();
-      }
 
-    }, 1000);
+          if (timeLeft <= 0) {
+
+            clearInterval(
+              interval
+            );
+
+
+            if (timer) {
+
+              timer.textContent =
+                "✓";
+
+              timer.classList.add(
+                "timer-complete"
+              );
+
+            }
+
+
+            checkComplete();
+
+          }
+
+        },
+        1000
+      );
+
   }
+
 
   // =====================================
   // CHECK COMPLETE
@@ -193,74 +316,352 @@ document.addEventListener("DOMContentLoaded", async () => {
   function checkComplete() {
 
     if (
-      completedTasks === tasks.length &&
+      completedTasks ===
+        tasks.length &&
+
       timeLeft <= 0 &&
+
       downloadUrl
     ) {
 
-      continueButton.disabled = false;
+      continueButton.disabled =
+        false;
+
 
       continueButton.classList.add(
         "ready"
       );
+
 
       const spans =
         continueButton.querySelectorAll(
           "span"
         );
 
+
       if (spans[0]) {
+
         spans[0].textContent =
           "Continue to Download";
+
       }
+
     }
+
   }
 
+
   // =====================================
-  // CONTINUE → MEDIAFIRE
+  // TAMBAH DOWNLOAD COUNT
   // =====================================
 
-  continueButton.addEventListener(
-    "click",
-    () => {
+  async function incrementDownloadCount() {
 
-      if (
-        continueButton.disabled ||
-        !downloadUrl
-      ) {
-        return;
+    if (!addonId) {
+
+      console.error(
+        "[SMC DL] addonId kosong."
+      );
+
+      return false;
+
+    }
+
+
+    try {
+
+      console.log(
+        "[SMC DL] Menambah download_count..."
+      );
+
+
+      /*
+       * Ambil download_count terbaru
+       */
+
+      const getResponse =
+        await fetch(
+          `${SUPABASE_URL}/rest/v1/addons?id=eq.${encodeURIComponent(addonId)}&select=download_count`,
+          {
+
+            method: "GET",
+
+            headers: {
+
+              "apikey":
+                SUPABASE_KEY,
+
+              "Authorization":
+                `Bearer ${SUPABASE_KEY}`
+
+            }
+
+          }
+        );
+
+
+      if (!getResponse.ok) {
+
+        throw new Error(
+          `Gagal mengambil download_count: ${getResponse.status}`
+        );
+
       }
 
-      try {
 
-        const url =
-          new URL(downloadUrl);
+      const data =
+        await getResponse.json();
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        throw new Error(
+          "Addon tidak ditemukan saat update download."
+        );
+
+      }
+
+
+      const currentCount =
+        Number(
+          data[0].download_count
+        ) || 0;
+
+
+      const newCount =
+        currentCount + 1;
+
+
+      /*
+       * Update download_count
+       */
+
+      const updateResponse =
+        await fetch(
+          `${SUPABASE_URL}/rest/v1/addons?id=eq.${encodeURIComponent(addonId)}`,
+          {
+
+            method: "PATCH",
+
+            headers: {
+
+              "apikey":
+                SUPABASE_KEY,
+
+              "Authorization":
+                `Bearer ${SUPABASE_KEY}`,
+
+              "Content-Type":
+                "application/json",
+
+              "Prefer":
+                "return=minimal"
+
+            },
+
+            body:
+              JSON.stringify({
+                download_count:
+                  newCount
+              })
+
+          }
+        );
+
+
+      if (!updateResponse.ok) {
+
+        const errorText =
+          await updateResponse.text();
+
+
+        throw new Error(
+          `Gagal update download_count: ${updateResponse.status} ${errorText}`
+        );
+
+      }
+
+
+      console.log(
+        `[SMC DL] Download count berhasil: ${currentCount} → ${newCount}`
+      );
+
+
+      return true;
+
+
+    } catch (error) {
+
+      console.error(
+        "[SMC DL] Download count error:",
+        error
+      );
+
+
+      return false;
+
+    }
+
+  }
+
+
+  // =====================================
+  // CONTINUE → DOWNLOAD
+  // =====================================
+
+  if (continueButton) {
+
+    continueButton.addEventListener(
+      "click",
+      async () => {
 
         if (
-          url.protocol !== "http:" &&
-          url.protocol !== "https:"
+          continueButton.disabled ||
+          !downloadUrl
         ) {
-          throw new Error(
-            "URL tidak valid."
-          );
+
+          return;
+
         }
 
-        // LANGSUNG KE MEDIAFIRE
+
+        /*
+         * Cegah klik dua kali
+         */
+
+        continueButton.disabled =
+          true;
+
+
+        const originalText =
+          continueButton.querySelector(
+            "span"
+          );
+
+
+        if (originalText) {
+
+          originalText.textContent =
+            "Preparing Download...";
+
+        }
+
+
+        // =================================
+        // VALIDASI URL
+        // =================================
+
+        let url;
+
+
+        try {
+
+          url =
+            new URL(
+              downloadUrl
+            );
+
+
+          if (
+            url.protocol !== "http:" &&
+            url.protocol !== "https:"
+          ) {
+
+            throw new Error(
+              "URL tidak valid."
+            );
+
+          }
+
+        } catch (error) {
+
+          console.error(
+            "[SMC DL] URL download invalid:",
+            error
+          );
+
+
+          alert(
+            "Link download tidak valid."
+          );
+
+
+          continueButton.disabled =
+            false;
+
+
+          if (originalText) {
+
+            originalText.textContent =
+              "Continue to Download";
+
+          }
+
+
+          return;
+
+        }
+
+
+        // =================================
+        // TAMBAH DOWNLOAD COUNT
+        // =================================
+
+        const counted =
+          await incrementDownloadCount();
+
+
+        if (!counted) {
+
+          /*
+           * Jangan tetap redirect
+           * kalau count gagal.
+           *
+           * Dengan begini kamu bisa tahu
+           * kalau RLS Supabase bermasalah.
+           */
+
+          alert(
+            "Download gagal dicatat. Silakan coba lagi."
+          );
+
+
+          continueButton.disabled =
+            false;
+
+
+          if (originalText) {
+
+            originalText.textContent =
+              "Continue to Download";
+
+          }
+
+
+          return;
+
+        }
+
+
+        // =================================
+        // REDIRECT
+        // =================================
+
+        console.log(
+          "[SMC DL] Redirect ke:",
+          url.href
+        );
+
+
         window.location.href =
           url.href;
 
-      } catch (error) {
-
-        console.error(
-          "URL download tidak valid:",
-          error
-        );
-
-        alert(
-          "Link download tidak valid."
-        );
       }
-    }
-  );
+    );
+
+  }
 
 });
