@@ -3203,3 +3203,200 @@ input {
   }
 
 }
+/* =========================================================
+   PODIUM MERAH - TOTAL UPLOAD
+   ========================================================= */
+
+.podium-icon {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  gap: 3px;
+
+  padding-bottom: 7px;
+
+  border: 1px solid rgba(255, 80, 105, .45);
+
+  border-radius: 17px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 45, 75, .18),
+      rgba(100, 10, 35, .18)
+    );
+
+  box-shadow:
+    0 0 18px rgba(255, 40, 70, .22),
+    inset 0 0 18px rgba(255, 40, 70, .08);
+
+  animation:
+    podiumFloat 2.5s ease-in-out infinite;
+}
+
+
+/* BATANG PODIUM */
+
+.podium-icon span {
+  display: block;
+
+  width: 10px;
+
+  border-radius:
+    3px 3px 1px 1px;
+
+  background:
+    linear-gradient(
+      to top,
+      #b51232,
+      #ff526d
+    );
+
+  box-shadow:
+    0 0 9px rgba(255, 45, 75, .55);
+
+  transform-origin: bottom;
+
+  animation:
+    podiumPull 1.4s ease-in-out infinite;
+}
+
+
+/* KIRI */
+
+.podium-icon span:nth-child(1) {
+  height: 25px;
+
+  animation-delay: .2s;
+}
+
+
+/* TENGAH / JUARA 1 */
+
+.podium-icon span:nth-child(2) {
+  height: 40px;
+
+  width: 12px;
+
+  background:
+    linear-gradient(
+      to top,
+      #d7193f,
+      #ff7185
+    );
+
+  box-shadow:
+    0 0 13px rgba(255, 50, 80, .7);
+
+  animation-delay: 0s;
+}
+
+
+/* KANAN */
+
+.podium-icon span:nth-child(3) {
+  height: 31px;
+
+  animation-delay: .4s;
+}
+
+
+/* =========================================================
+   ANIMASI NARIK TURUN
+   ========================================================= */
+
+@keyframes podiumPull {
+
+  0%,
+  100% {
+    transform:
+      scaleY(1);
+  }
+
+  35% {
+    transform:
+      scaleY(.65);
+  }
+
+  55% {
+    transform:
+      scaleY(1.08);
+  }
+
+  70% {
+    transform:
+      scaleY(.88);
+  }
+
+}
+
+
+/* ICON IKUT NAIK TURUN */
+
+@keyframes podiumFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-5px);
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .podium-icon {
+    width: 48px;
+    height: 48px;
+
+    padding-bottom: 6px;
+
+    border-radius: 15px;
+  }
+
+  .podium-icon span {
+    width: 8px;
+  }
+
+  .podium-icon span:nth-child(1) {
+    height: 21px;
+  }
+
+  .podium-icon span:nth-child(2) {
+    height: 34px;
+    width: 10px;
+  }
+
+  .podium-icon span:nth-child(3) {
+    height: 27px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .podium-icon,
+  .podium-icon span {
+    animation: none !important;
+  }
+
+}
