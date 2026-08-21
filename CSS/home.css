@@ -2655,3 +2655,551 @@ input {
   }
 
 }
+/* =========================================================
+   SMC DL - DASHBOARD TAMBAHAN
+   Tidak mengubah CSS lama
+   ========================================================= */
+
+.smc-dashboard {
+  width: calc(100% - 48px);
+  max-width: 850px;
+  margin: 5px auto 35px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+
+  padding: 12px;
+
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid rgba(78, 166, 255, 0.18);
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(7, 25, 48, 0.82),
+      rgba(2, 10, 23, 0.9)
+    );
+
+  box-shadow:
+    0 15px 45px rgba(0, 80, 180, 0.08),
+    inset 0 0 25px rgba(0, 130, 255, 0.025);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+
+/* DASHBOARD SHINE */
+
+.smc-dashboard::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -100%;
+
+  width: 55%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.07),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  pointer-events: none;
+
+  animation:
+    smcDashboardShine 6s ease-in-out infinite;
+}
+
+
+@keyframes smcDashboardShine {
+
+  0% {
+    left: -100%;
+  }
+
+  45%,
+  100% {
+    left: 160%;
+  }
+
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.smc-dashboard-card {
+  min-height: 120px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  position: relative;
+  overflow: hidden;
+
+  padding: 12px 7px;
+
+  border-radius: 16px;
+
+  transition:
+    transform .3s ease,
+    border-color .3s ease,
+    box-shadow .3s ease;
+}
+
+
+.smc-dashboard-card:hover {
+  transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   MEDIAFIRE
+   ========================================================= */
+
+.smc-dashboard-card.download-card {
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(0, 140, 255, .15),
+      rgba(0, 70, 140, .07)
+    );
+
+  border:
+    1px solid rgba(70, 175, 255, .20);
+}
+
+
+.smc-dashboard-card.download-card:hover {
+
+  border-color:
+    rgba(70, 175, 255, .45);
+
+  box-shadow:
+    0 10px 30px rgba(0, 130, 255, .12);
+}
+
+
+/* =========================================================
+   TOTAL UPLOAD
+   ========================================================= */
+
+.smc-dashboard-card.stats-card {
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 50, 75, .13),
+      rgba(120, 10, 25, .06)
+    );
+
+  border:
+    1px solid rgba(255, 80, 95, .20);
+}
+
+
+.smc-dashboard-card.stats-card:hover {
+
+  border-color:
+    rgba(255, 90, 110, .45);
+
+  box-shadow:
+    0 10px 30px rgba(255, 40, 70, .10);
+}
+
+
+/* =========================================================
+   DOWNLOAD COUNT
+   ========================================================= */
+
+.smc-dashboard-card.info-card {
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(70, 220, 190, .11),
+      rgba(10, 90, 100, .05)
+    );
+
+  border:
+    1px solid rgba(80, 220, 200, .18);
+}
+
+
+.smc-dashboard-card.info-card:hover {
+
+  border-color:
+    rgba(80, 220, 200, .45);
+
+  box-shadow:
+    0 10px 30px rgba(50, 220, 200, .10);
+}
+
+
+/* =========================================================
+   DOWNLOAD ICON
+   ========================================================= */
+
+.dashboard-download-icon {
+
+  width: 38px;
+  height: 38px;
+
+  margin-bottom: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background:
+    rgba(30, 145, 255, .12);
+
+  border:
+    1px solid rgba(70, 180, 255, .25);
+
+  color:
+    #65c7ff;
+
+  font-size: 21px;
+
+  box-shadow:
+    0 0 15px rgba(0, 145, 255, .15);
+
+  animation:
+    dashboardDownloadFloat 2s ease-in-out infinite;
+}
+
+
+@keyframes dashboardDownloadFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+
+}
+
+
+/* =========================================================
+   PODIUM
+   ========================================================= */
+
+.dashboard-podium {
+
+  height: 42px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  gap: 3px;
+
+  margin-bottom: 6px;
+}
+
+
+.podium-bar {
+
+  width: 11px;
+
+  border-radius:
+    4px 4px 2px 2px;
+
+  background:
+    linear-gradient(
+      to top,
+      #d71935,
+      #ff5265
+    );
+
+  box-shadow:
+    0 0 10px rgba(255, 50, 70, .3);
+
+  animation:
+    dashboardPodium 1.3s ease-in-out infinite;
+}
+
+
+.podium-bar:nth-child(1) {
+  height: 25px;
+  animation-delay: .15s;
+}
+
+
+.podium-bar:nth-child(2) {
+  height: 40px;
+  animation-delay: 0s;
+}
+
+
+.podium-bar:nth-child(3) {
+  height: 32px;
+  animation-delay: .3s;
+}
+
+
+@keyframes dashboardPodium {
+
+  0%,
+  100% {
+    transform: scaleY(.78);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+
+}
+
+
+/* =========================================================
+   DOWNLOAD COUNT ICON
+   ========================================================= */
+
+.dashboard-info-icon {
+
+  width: 38px;
+  height: 38px;
+
+  margin-bottom: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    rgba(70, 220, 190, .10);
+
+  border:
+    1px solid rgba(80, 220, 200, .25);
+
+  color:
+    #73e4cf;
+
+  font-size: 20px;
+
+  box-shadow:
+    0 0 15px rgba(50, 220, 200, .12);
+
+  animation:
+    dashboardInfoFloat 2.2s ease-in-out infinite;
+}
+
+
+@keyframes dashboardInfoFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotate(0deg);
+  }
+
+  50% {
+    transform:
+      translateY(-3px)
+      rotate(3deg);
+  }
+
+}
+
+
+/* =========================================================
+   VALUE
+   ========================================================= */
+
+.smc-dashboard .dashboard-value {
+
+  font-family:
+    'Orbitron',
+    sans-serif;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  line-height: 1.1;
+
+  color:
+    #edf8ff;
+
+  letter-spacing: .5px;
+
+  text-shadow:
+    0 0 10px rgba(80, 180, 255, .15);
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.smc-dashboard .dashboard-label {
+
+  margin-top: 6px;
+
+  color:
+    rgba(150, 190, 220, .72);
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .smc-dashboard {
+
+    width: calc(100% - 30px);
+
+    gap: 8px;
+
+    padding: 9px;
+
+    margin-bottom: 30px;
+
+    border-radius: 19px;
+  }
+
+
+  .smc-dashboard-card {
+
+    min-height: 105px;
+
+    padding:
+      9px 4px;
+
+    border-radius: 14px;
+  }
+
+
+  .dashboard-download-icon,
+  .dashboard-info-icon {
+
+    width: 33px;
+    height: 33px;
+
+    margin-bottom: 6px;
+
+    font-size: 17px;
+  }
+
+
+  .smc-dashboard .dashboard-value {
+
+    font-size: 14px;
+  }
+
+
+  .smc-dashboard .dashboard-label {
+
+    margin-top: 4px;
+
+    font-size: 7px;
+
+    letter-spacing: .7px;
+  }
+
+
+  .dashboard-podium {
+
+    height: 36px;
+
+    margin-bottom: 4px;
+  }
+
+
+  .podium-bar {
+
+    width: 9px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .smc-dashboard {
+
+    width: calc(100% - 24px);
+
+    gap: 6px;
+
+    padding: 7px;
+  }
+
+
+  .smc-dashboard-card {
+
+    min-height: 98px;
+  }
+
+
+  .smc-dashboard .dashboard-value {
+
+    font-size: 12px;
+  }
+
+
+  .smc-dashboard .dashboard-label {
+
+    font-size: 6.5px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .smc-dashboard::before,
+  .dashboard-download-icon,
+  .podium-bar,
+  .dashboard-info-icon {
+
+    animation: none !important;
+  }
+
+}
