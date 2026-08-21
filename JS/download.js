@@ -651,13 +651,54 @@ document.addEventListener("DOMContentLoaded", async () => {
         // =================================
 
         console.log(
-          "[SMC DL] Redirect ke:",
-          url.href
-        );
+  "[SMC DL] Redirect ke:",
+  url.href
+);
+
+// TAMBAH DOWNLOAD COUNT
+try {
+
+  const countResponse = await fetch(
+    `${SUPABASE_URL}/rest/v1/rpc/increment_download_count`,
+    {
+      method: "POST",
+
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        addon_id: addonId
+      })
+    }
+  );
+
+  if (!countResponse.ok) {
+    console.error(
+      "[SMC DL] Gagal menambah download count:",
+      await countResponse.text()
+    );
+  } else {
+    console.log(
+      "[SMC DL] Download count berhasil ditambah!"
+    );
+  }
+
+} catch (error) {
+
+  console.error(
+    "[SMC DL] RPC error:",
+    error
+  );
+
+}
 
 
-        window.location.href =
-          url.href;
+// BARU REDIRECT
+window.location.href =
+  url.href;
 
       }
     );
