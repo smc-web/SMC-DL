@@ -3400,3 +3400,259 @@ input {
   }
 
 }
+/* =========================================================
+   COMMUNITY ICON - CSS ONLY
+   3 ORANG / COMMUNITY
+   ========================================================= */
+
+.community-icon {
+  width: 55px;
+  height: 55px;
+
+  position: relative;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  margin-bottom: 9px;
+
+  border-radius: 17px;
+
+  border: 1px solid rgba(100, 245, 240, .5);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(50, 230, 220, .16),
+      rgba(0, 80, 100, .08)
+    );
+
+  box-shadow:
+    0 0 18px rgba(0, 220, 220, .22),
+    inset 0 0 18px rgba(0, 220, 220, .08);
+
+  animation:
+    communityFloat 2.5s ease-in-out infinite;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   KEPALA ORANG
+   ========================================================= */
+
+.community-icon .person {
+  position: absolute;
+
+  display: block;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #b9ffff,
+      #3bd9df
+    );
+
+  box-shadow:
+    0 0 8px rgba(60, 235, 240, .65);
+
+  animation:
+    personPulse 2.2s ease-in-out infinite;
+}
+
+
+/* ORANG TENGAH */
+
+.community-icon .person-1 {
+  width: 13px;
+  height: 13px;
+
+  top: 10px;
+  left: 21px;
+
+  z-index: 3;
+}
+
+
+/* ORANG KIRI */
+
+.community-icon .person-2 {
+  width: 10px;
+  height: 10px;
+
+  top: 17px;
+  left: 10px;
+
+  opacity: .85;
+
+  animation-delay: .25s;
+}
+
+
+/* ORANG KANAN */
+
+.community-icon .person-3 {
+  width: 10px;
+  height: 10px;
+
+  top: 17px;
+  right: 10px;
+
+  opacity: .85;
+
+  animation-delay: .5s;
+}
+
+
+/* =========================================================
+   BADAN ORANG
+   Dibuat menggunakan pseudo-element
+   ========================================================= */
+
+.community-icon .person::after {
+  content: "";
+
+  position: absolute;
+
+  width: 18px;
+  height: 13px;
+
+  left: 50%;
+  bottom: -11px;
+
+  transform: translateX(-50%);
+
+  border-radius:
+    10px 10px 4px 4px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #8ffcff,
+      #20bfc9
+    );
+
+  box-shadow:
+    0 0 8px rgba(40, 225, 235, .5);
+}
+
+
+/* Badan orang samping lebih kecil */
+
+.community-icon .person-2::after,
+.community-icon .person-3::after {
+  width: 15px;
+  height: 11px;
+
+  bottom: -9px;
+}
+
+
+/* =========================================================
+   ANIMASI
+   ========================================================= */
+
+@keyframes communityFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+
+}
+
+
+@keyframes personPulse {
+
+  0%,
+  100% {
+    filter: brightness(1);
+
+    transform: scale(1);
+  }
+
+  50% {
+    filter: brightness(1.25);
+
+    transform: scale(1.08);
+  }
+
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.dashboard-community:hover .community-icon {
+
+  border-color:
+    rgba(110, 255, 250, .9);
+
+  box-shadow:
+    0 0 25px rgba(0, 230, 230, .45),
+    inset 0 0 20px rgba(0, 230, 230, .12);
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .community-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 15px;
+  }
+
+  .community-icon .person-1 {
+    width: 11px;
+    height: 11px;
+
+    top: 8px;
+    left: 18px;
+  }
+
+  .community-icon .person-2 {
+    width: 9px;
+    height: 9px;
+
+    top: 15px;
+    left: 8px;
+  }
+
+  .community-icon .person-3 {
+    width: 9px;
+    height: 9px;
+
+    top: 15px;
+    right: 8px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .community-icon,
+  .community-icon .person {
+    animation: none !important;
+  }
+
+}
