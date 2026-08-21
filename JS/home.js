@@ -1732,3 +1732,33 @@ window.smcIncrementView =
 
 window.smcIncrementDownload =
   incrementDownloadCount;
+/* =========================================================
+   HERO TYPING ANIMATION
+   ========================================================= */
+
+const typingText = document.getElementById("typingText");
+
+if (typingText) {
+
+  const text =
+    "Temukan addon, mod, shader, texture, map dan berbagai konten Minecraft favoritmu.";
+
+  let index = 0;
+
+  function typeText() {
+
+    if (index < text.length) {
+
+      typingText.textContent += text.charAt(index);
+
+      index++;
+
+      setTimeout(typeText, 38);
+
+    }
+
+  }
+
+  typeText();
+
+}
